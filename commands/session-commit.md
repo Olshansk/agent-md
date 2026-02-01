@@ -13,28 +13,17 @@ allowed-tools:
 
 # Session Commit <!-- omit in toc -->
 
-Analyze the current conversation to extract best practices and/or valuable learnings to the project's `AGENTS.md` file. This is a mechanism to scale your human/agent team.
+Analyze the current conversation to extract best practices and valuable learnings to the project's `AGENTS.md` file. This file is primarily targeted at agents, and serves to scale effectiveness across sessions.
 
-- [Instructions](#instructions)
-  - [Step 1: Ensure CLAUDE.md, GEMINI.md, and CODEX.md Exist](#step-1-ensure-claudemd-geminimd-and-codexmd-exist)
-  - [Step 2: Check for `AGENTS.md`](#step-2-check-for-agentsmd)
-  - [Step 3: Comprehensive `AGENTS.md` Analysis (MANDATORY)](#step-3-comprehensive-agentsmd-analysis-mandatory)
-  - [Step 4: Analyze Session Learnings](#step-4-analyze-session-learnings)
-  - [Step 5: Propose Updates with Visual Formatting (REQUIRES CONFIRMATION)](#step-5-propose-updates-with-visual-formatting-requires-confirmation)
-  - [Step 6: Apply Changes](#step-6-apply-changes)
-  - [Step 7: Offer `AGENTS.md` Review (Optional)](#step-7-offer-agentsmd-review-optional)
-- [Tips](#tips)
+## Preconditions
 
-## Instructions
+Before starting, ensure the following files exist in the project root:
 
-### Step 1: Ensure CLAUDE.md, GEMINI.md, and CODEX.md Exist
-
-Check if `CLAUDE.md`, `GEMINI.md`, and `CODEX.md` exist in the project root. If missing or empty, create them using the templates below.
-
-**CLAUDE.md:**
+- `AGENTS.md` — if missing, use `/init` to create it, then move any guidance found in pointer files into `AGENTS.md` and reset pointer files to the template below
+- `CLAUDE.md`, `GEMINI.md`, `CODEX.md` — if any are missing or empty, create them using this template (replacing `{TOOL}` with the file name):
 
 ```markdown
-# CLAUDE.md
+# {TOOL}.md
 
 This file is intentionally minimal.
 
@@ -49,70 +38,17 @@ You must:
 Read now: [AGENTS.md](./AGENTS.md)
 ```
 
-**GEMINI.md:**
+## Step 1: Analyze Existing `AGENTS.md`
 
-```markdown
-# GEMINI.md
+Read the entire `AGENTS.md`. Before proposing any changes, perform a thorough review:
 
-This file is intentionally minimal.
+1. **Build a Mental Map** — list all major sections and their purposes; note the organizational pattern
+2. **Catalog Existing Content** — key topics, conventions, commands, and workflows already documented
+3. **Flag Potential Conflicts** — topics that might overlap with session learnings; sections already comprehensive enough to skip
 
-**Authoritative project instructions live in `AGENTS.md`.**
+This analysis MUST inform what changes are proposed in Step 3.
 
-You must:
-
-1. Open and follow `AGENTS.md` before doing any work.
-2. Treat `AGENTS.md` as the single source of truth for all operations.
-3. Update `AGENTS.md` (not this file) when guidelines/architecture/standards change.
-
-Read now: [AGENTS.md](./AGENTS.md)
-```
-
-**CODEX.md:**
-
-```markdown
-# CODEX.md
-
-This file is intentionally minimal.
-
-**Authoritative project instructions live in `AGENTS.md`.**
-
-You must:
-
-1. Open and follow `AGENTS.md` before doing any work.
-2. Treat `AGENTS.md` as the single source of truth for all operations.
-3. Update `AGENTS.md` (not this file) when guidelines/architecture/standards change.
-
-Read now: [AGENTS.md](./AGENTS.md)
-```
-
-### Step 2: Check for `AGENTS.md`
-
-Check if `AGENTS.md` exists in the project root.
-
-**If `AGENTS.md` exists**, read it to understand current content and proceed to Step 3.
-
-**If `AGENTS.md` is missing**, use the `/init` command to create it. You will need to move the contents of `CLAUDE.md` to `AGENTS.md` and update `CLAUDE.md` as described in Step 1.
-
-### Step 3: Comprehensive `AGENTS.md` Analysis (MANDATORY)
-
-Before proposing any changes, perform a thorough review of the existing `AGENTS.md`:
-
-1. **Build a Mental Map**
-   - List all major sections and their purposes
-   - Note the organizational pattern (by topic, workflow, etc.)
-
-2. **Catalog Existing Content**
-   - Key topics already covered
-   - Specific conventions documented
-   - Commands and workflows listed
-
-3. **Flag Potential Conflicts**
-   - Topics that might overlap with session learnings
-   - Sections already comprehensive (avoid duplicates)
-
-This analysis MUST inform what changes are proposed in Step 5.
-
-### Step 4: Analyze Session Learnings
+## Step 2: Extract Session Learnings
 
 Review the conversation for:
 
@@ -122,13 +58,15 @@ Review the conversation for:
 - Project conventions established
 - Debugging insights
 - Workflow preferences
-- Anything that would be useful for another AI agent or human developer to know to be productive in this project
+- Anything useful for another AI agent or human developer to be productive in this project
 
-### Step 5: Propose Updates with Visual Formatting (REQUIRES CONFIRMATION)
+If nothing meaningful was learned this session, say so and stop. Don't force updates.
 
-**IMPORTANT: Do NOT make any changes yet.**
+## Step 3: Propose Changes
 
-Present the exact proposed changes using this visual format:
+**Do NOT apply changes yet.**
+
+Present proposed changes using this format:
 
 ````markdown
 ## Proposed Changes to `AGENTS.md`
@@ -178,24 +116,23 @@ Present the exact proposed changes using this visual format:
 
 **Format requirements:**
 
-- Use blockquotes to create visual "boxes"
+- Use blockquotes to create visual boxes
 - Include a summary line with counts
-- Use `diff` code blocks: `+` prefix for additions (green), `-` prefix for removals (red)
-- Show Before/After for all modifications
-- Require a reason for all removals
+- Use `diff` code blocks: `+` for additions, `-` for removals
+- Show Before/After for modifications
+- Require a reason for every removal
 
-Then ask the user: **"Do you want me to apply these changes to `AGENTS.md`?"**
+Then ask: **"Do you want me to apply these changes to `AGENTS.md`?"**
 
 Wait for explicit confirmation before proceeding.
 
-### Step 6: Apply Changes
+## Step 4: Apply Changes
 
-**Only after user confirms**, apply the approved changes:
+Only after the user confirms, apply the approved changes to `AGENTS.md`.
 
-- Update `AGENTS.md` with the approved content
-- Merge with existing content appropriately
+Merge with existing content — don't overwrite unrelated sections.
 
-### Step 7: Offer `AGENTS.md` Review (Optional)
+## Step 5: Review `AGENTS.md` (Optional)
 
 After changes are applied, ask: **"Would you like me to review the entire `AGENTS.md` for cleanup opportunities?"**
 
@@ -206,12 +143,11 @@ If accepted, review for:
 - **Consolidation** — related items scattered across sections that belong together
 - **Clarity** — unclear instructions or verbose content that could be tightened
 
-Present findings using the same visual format from Step 5. **Wait for explicit confirmation** before applying any cleanup changes.
+Present findings using the same format from Step 3. Wait for explicit confirmation before applying cleanup.
 
 ## Tips
 
-- If no meaningful learnings in this session, say so - don't force updates
 - Prefer bullet points over paragraphs in `AGENTS.md`
 - Include specific file paths when referencing project structure
 - Avoid duplicating information already in `AGENTS.md`
-- When reviewing, err on the side of keeping content if unsure
+- When unsure whether something is worth capturing, include it only if it adds distinct guidance
