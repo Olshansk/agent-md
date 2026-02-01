@@ -1,3 +1,6 @@
+> [!TIP]
+> This is the easiest way to keep your `AGENTS.md` in sync with your codebase's best practices and patterns.
+
 # agent-md <!-- omit in toc -->
 
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-D27656)](#claude-code)
@@ -5,11 +8,11 @@
 [![Gemini CLI](https://img.shields.io/badge/Gemini%20CLI-678AE3)](#gemini-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
 
-**Scale your team, be it agents or humans, by keeping track of your team's patterns.**
+**Scale your team, be it agents or humans, by keeping track of your team's development patterns.**
 
 `AGENTS.md` is the new source of truth for your repo's structure, best practices, decisions and taste.
 
-Don't let details from agent sessions go to waste. Commit them.
+Don't let a good agnetic session go to waste. Commit it.
 
 ```mermaid
 graph LR
@@ -24,65 +27,68 @@ graph LR
     classDef scale fill:#9C27B0,color:#fff,stroke:#6A1B9A
 ```
 
-- [How It Works](#how-it-works)
-- [Quick Start](#quick-start)
+- [Quickstart](#quickstart)
   - [Claude Code](#claude-code)
   - [Codex CLI](#codex-cli)
   - [Gemini CLI](#gemini-cli)
+- [How It Works](#how-it-works)
 - [Cross-Tool Compatibility](#cross-tool-compatibility)
 - [Why This Exists](#why-this-exists)
 - [What Does This Plugin Do?](#what-does-this-plugin-do)
 - [What Gets Captured](#what-gets-captured)
 - [Star History](#star-history)
 
-## How It Works
-
-This plugin maintains `AGENTS.md` as the single source of truth for project knowledge. Each AI coding tool reads its own instruction file, and they all point back to `AGENTS.md`:
-
-| Tool | Reads | Points to |
-|------|-------|-----------|
-| Claude Code | `CLAUDE.md` | `AGENTS.md` |
-| Codex CLI | `AGENTS.md` (native) | — |
-| Gemini CLI | `GEMINI.md` | `AGENTS.md` |
-
-Run `/session-commit` (or the equivalent prompt) at the end of a coding session. The plugin captures learnings and writes them to `AGENTS.md`, making them available to every tool and every team member.
-
-## Quick Start
+## Quickstart
 
 ### Claude Code
 
-```bash
-# Add the marketplace
-/plugin marketplace add olshansk/agent-md
+Add the marketplace:
 
-# Install the plugin
+```bash
+/plugin marketplace add olshansk/agent-md
+```
+
+Install the plugin:
+
+```
 /plugin install agent-md@olshansk
 ```
 
 > [!NOTE]
 > After installing, restart Claude Code for the plugin to take effect.
 
-**Usage:**
+Use the plugin:
 
 ```bash
 /session-commit
 ```
 
-**Update:**
+Update the plugin:
 
 ```bash
 /plugin update agent-md@olshansk
 ```
 
-**Auto-Update:** Run `/plugin` → Select Marketplaces → Choose olshansk → Enable auto-update
+> [!TIP]
+> Configure the plugin to auto update.
+> Run `/plugin` → Select Marketplaces → Choose olshansk → Enable auto-update
 
-**Uninstall:**
+<details>
+<summary> (If you're not satisfied) Removing the plugin </summary>
+
+Uninstall the plugin:
 
 ```bash
 /plugin uninstall agent-md
-# Remove the marketplace (optional)
+```
+
+Remove the marketplace (optional)
+
+```bash
 /plugin marketplace remove olshansk
 ```
+
+</details>
 
 ---
 
@@ -144,6 +150,18 @@ Then run it with:
 /session-commit
 ```
 
+## How It Works
+
+This plugin maintains `AGENTS.md` as the single source of truth for project knowledge. Each AI coding tool reads its own instruction file, and they all point back to `AGENTS.md`:
+
+| Tool        | Reads                | Points to   |
+| ----------- | -------------------- | ----------- |
+| Claude Code | `CLAUDE.md`          | `AGENTS.md` |
+| Codex CLI   | `AGENTS.md` (native) | —           |
+| Gemini CLI  | `GEMINI.md`          | `AGENTS.md` |
+
+Run `/session-commit` (or the equivalent prompt) at the end of a coding session. The plugin captures learnings and writes them to `AGENTS.md`, making them available to every tool and every team member.
+
 ## Cross-Tool Compatibility
 
 The key insight: `AGENTS.md` is tool-agnostic. A session captured in Claude Code benefits Codex, Gemini, and any human reading the repo.
@@ -167,6 +185,7 @@ graph TD
 ```
 
 The plugin ensures these files exist in your project:
+
 - `AGENTS.md` — the source of truth (all learnings go here)
 - `CLAUDE.md` — minimal pointer for Claude Code
 - `CODEX.md` — minimal pointer for Codex CLI (optional, since Codex reads `AGENTS.md` directly)
