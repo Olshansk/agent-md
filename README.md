@@ -3,10 +3,10 @@
 
 # agent-md <!-- omit in toc -->
 
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-D27656)](#claude-code)
-[![OpenCode](https://img.shields.io/badge/OpenCode-3B82F6)](#opencode)
 [![Codex CLI](https://img.shields.io/badge/Codex%20CLI-00A67E)](#codex-cli)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-D27656)](#claude-code)
 [![Gemini CLI](https://img.shields.io/badge/Gemini%20CLI-678AE3)](#gemini-cli)
+[![OpenCode](https://img.shields.io/badge/OpenCode-3B82F6)](#opencode)
 [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
 
 **Scale your team, be it agents 🤖 or humans 👩‍💻, by keeping track of your team's development patterns 📚**
@@ -19,7 +19,7 @@ Don't let a good agnetic session go to waste. Commit it.
 graph LR
     A[Code]:::code --> B[Iterate]:::iterate
     B --> C["/session-commit"]:::commit
-    C --> D[Scale Team]:::scale
+    C --> D["Scale Team<br>🤖 👩‍💻"]:::scale
     D --> A
 
     classDef code fill:#81C784,color:#1B5E20,stroke:#66BB6A
@@ -29,10 +29,10 @@ graph LR
 ```
 
 - [Quickstart](#quickstart)
-  - [Claude Code](#claude-code)
-  - [OpenCode](#opencode)
   - [Codex CLI](#codex-cli)
+  - [Claude Code](#claude-code)
   - [Gemini CLI](#gemini-cli)
+  - [OpenCode](#opencode)
 - [How It Works](#how-it-works)
 - [Cross-Tool Compatibility](#cross-tool-compatibility)
 - [Why This Exists](#why-this-exists)
@@ -41,6 +41,40 @@ graph LR
 - [Star History](#star-history)
 
 ## Quickstart
+
+### Codex CLI
+
+Codex [reads `AGENTS.md` natively](https://developers.openai.com/codex/guides/agents-md) — no plugin needed.
+
+Install the `/session-commit` prompt:
+
+```bash
+mkdir -p ~/.codex/prompts
+curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md
+```
+
+Run it:
+
+```bash
+/prompts:session-commit
+```
+
+Update it:
+
+```bash
+curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md
+```
+
+<details>
+<summary> (If you're not satisfied) Removing the command </summary>
+
+```bash
+rm ~/.codex/prompts/session-commit.md
+```
+
+</details>
+
+---
 
 ### Claude Code
 
@@ -94,44 +128,6 @@ Remove the marketplace (optional)
 
 ---
 
-### OpenCode
-
-OpenCode [reads `AGENTS.md` natively](https://opencode.ai/docs/rules/) — no plugin needed.
-
-Install the `/session-commit` command:
-
-```bash
-mkdir -p ~/.config/opencode/commands
-curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md
-```
-
-Run it:
-
-```bash
-/session-commit
-```
-
----
-
-### Codex CLI
-
-Codex [reads `AGENTS.md` natively](https://developers.openai.com/codex/guides/agents-md) — no plugin needed.
-
-Install the `/session-commit` prompt:
-
-```bash
-mkdir -p ~/.codex/prompts
-curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md
-```
-
-Run it:
-
-```bash
-/prompts:session-commit
-```
-
----
-
 ### Gemini CLI
 
 Install the extension:
@@ -155,6 +151,40 @@ Use the plugin:
 ```bash
 /session-commit
 ```
+
+---
+
+### OpenCode
+
+OpenCode [reads `AGENTS.md` natively](https://opencode.ai/docs/rules/) — no plugin needed.
+
+Install the `/session-commit` command:
+
+```bash
+mkdir -p ~/.config/opencode/commands
+curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md
+```
+
+Run it:
+
+```bash
+/session-commit
+```
+
+Update it:
+
+```bash
+curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md
+```
+
+<details>
+<summary> (If you're not satisfied) Removing the command </summary>
+
+```bash
+rm ~/.config/opencode/commands/session-commit.md
+```
+
+</details>
 
 ## How It Works
 

@@ -1,5 +1,5 @@
 ---
-description: Capture learnings from the current session and update`AGENTS.md`
+description: Capture learnings from the current session and update `AGENTS.md`
 allowed-tools:
   - Read
   - Write
@@ -13,7 +13,7 @@ allowed-tools:
 
 # Session Commit <!-- omit in toc -->
 
-Analyze the current conversation to extract best practices and/or valuable learnings to the project's`AGENTS.md` file. This is a mechanism to scale your human/agent team.
+Analyze the current conversation to extract best practices and/or valuable learnings to the project's `AGENTS.md` file. This is a mechanism to scale your human/agent team.
 
 - [Instructions](#instructions)
   - [Step 1: Ensure CLAUDE.md, GEMINI.md, and CODEX.md Exist](#step-1-ensure-claudemd-geminimd-and-codexmd-exist)
@@ -131,7 +131,7 @@ Review the conversation for:
 Present the exact proposed changes using this visual format:
 
 ````markdown
-## Proposed Changes to`AGENTS.md`
+## Proposed Changes to `AGENTS.md`
 
 > **Summary:** X additions, Y modifications, Z removals
 
