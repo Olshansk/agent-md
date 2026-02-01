@@ -1,0 +1,10 @@
+{
+  "name": "agent-md",
+  "version": "0.2.0",
+  "description": "Capture session learnings and best practices to AGENTS.md to scale your human/agent team.",
+  "author": {
+    "name": "Daniel Olshansky",
+    "url": "https://github.com/olshansky"
+  },
+  "repository": "https://github.com/olshansk/agent-md"
+}

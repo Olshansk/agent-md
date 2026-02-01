@@ -1,0 +1,33 @@
+{
+  "name": "olshansk",
+  "owner": {
+    "name": "Daniel Olshansky"
+  },
+  "metadata": {
+    "description": "Capture session learnings to AGENTS.md for cross-tool AI interoperability"
+  },
+  "plugins": [
+    {
+      "name": "agent-md",
+      "source": {
+        "source": "github",
+        "repo": "olshansk/agent-md"
+      },
+      "description": "Capture session learnings and best practices to AGENTS.md to scale your human/agent team.",
+      "version": "0.2.0",
+      "author": {
+        "name": "Daniel Olshansky"
+      },
+      "category": "workflow",
+      "tags": [
+        "agents",
+        "documentation",
+        "knowledge-base",
+        "cross-tool",
+        "session",
+        "codex",
+        "gemini"
+      ]
+    }
+  ]
+}
