@@ -66,7 +66,7 @@ curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshans
 ```
 
 <details>
-<summary> (If you're not satisfied) Removing the command </summary>
+<summary>Remove the command</summary>
 
 ```bash
 rm ~/.codex/prompts/session-commit.md
@@ -110,7 +110,7 @@ Update the plugin:
 > Run `/plugin` → Select Marketplaces → Choose olshansk → Enable auto-update
 
 <details>
-<summary> (If you're not satisfied) Removing the plugin </summary>
+<summary>Remove the plugin</summary>
 
 Uninstall the plugin:
 
@@ -152,7 +152,7 @@ gemini extensions install https://github.com/olshansk/agent-md
 ```
 
 <details>
-<summary> (If you're not satisfied) Removing the extension </summary>
+<summary>Remove the extension</summary>
 
 ```bash
 gemini extensions uninstall agent-md
@@ -186,7 +186,7 @@ curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.
 ```
 
 <details>
-<summary> (If you're not satisfied) Removing the command </summary>
+<summary>Remove the command</summary>
 
 ```bash
 rm ~/.config/opencode/commands/session-commit.md
