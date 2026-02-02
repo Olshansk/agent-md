@@ -76,7 +76,7 @@ rm ~/.codex/prompts/session-commit.md
 </details>
 </details>
 
-<details open>
+<details>
 <summary><h3 id="claude-code">Claude Code</h3></summary>
 
 Add the marketplace:
