@@ -96,7 +96,7 @@ Install the plugin:
 Use the plugin:
 
 ```bash
-/session-commit
+/agent-md:session-commit
 ```
 
 Update the plugin:
@@ -197,7 +197,7 @@ This plugin maintains `AGENTS.md` as the single source of truth for project know
 | Codex CLI   | `AGENTS.md` (native) | —           |
 | Gemini CLI  | `GEMINI.md`          | `AGENTS.md` |
 
-Run `/session-commit` (or the equivalent prompt) at the end of a coding session. The plugin captures learnings and writes them to `AGENTS.md`, making them available to every tool and every team member.
+Run `/agent-md:session-commit` in Claude Code (or `/session-commit` in other tools) at the end of a coding session. The plugin captures learnings and writes them to `AGENTS.md`, making them available to every tool and every team member.
 
 ## Cross-Tool Compatibility
 
