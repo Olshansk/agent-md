@@ -42,7 +42,8 @@ graph LR
 
 ## Quickstart
 
-### Codex CLI
+<details>
+<summary><h3 id="codex-cli">Codex CLI</h3></summary>
 
 Codex [reads `AGENTS.md` natively](https://developers.openai.com/codex/guides/agents-md) — no plugin needed.
 
@@ -73,10 +74,10 @@ rm ~/.codex/prompts/session-commit.md
 ```
 
 </details>
+</details>
 
----
-
-### Claude Code
+<details open>
+<summary><h3 id="claude-code">Claude Code</h3></summary>
 
 Add the marketplace:
 
@@ -125,10 +126,10 @@ Remove the marketplace (optional)
 ```
 
 </details>
+</details>
 
----
-
-### Gemini CLI
+<details>
+<summary><h3 id="gemini-cli">Gemini CLI</h3></summary>
 
 Install the extension:
 
@@ -159,10 +160,10 @@ gemini extensions uninstall agent-md
 ```
 
 </details>
+</details>
 
----
-
-### OpenCode
+<details>
+<summary><h3 id="opencode">OpenCode</h3></summary>
 
 OpenCode [reads `AGENTS.md` natively](https://opencode.ai/docs/rules/) — no plugin needed.
 
@@ -192,6 +193,7 @@ curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.
 rm ~/.config/opencode/commands/session-commit.md
 ```
 
+</details>
 </details>
 
 ## How It Works
