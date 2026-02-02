@@ -1,0 +1,142 @@
+prompt = """
+# Session Commit
+
+Analyze the current conversation to extract best practices and valuable learnings to the project's `AGENTS.md` file. This file is primarily targeted at agents, and serves to scale effectiveness across sessions.
+
+## Preconditions
+
+Before starting, ensure the following files exist in the project root:
+
+- `AGENTS.md` — if missing, create it, then move any guidance found in pointer files into `AGENTS.md` and reset pointer files to the template below
+- `CLAUDE.md`, `GEMINI.md`, `CODEX.md` — if any are missing or empty, create them using this template (replacing `{TOOL}` with the file name):
+
+```markdown
+# {TOOL}.md
+
+This file is intentionally minimal.
+
+**Authoritative project instructions live in `AGENTS.md`.**
+
+You must:
+
+1. Open and follow `AGENTS.md` before doing any work.
+2. Treat `AGENTS.md` as the single source of truth for all operations.
+3. Update `AGENTS.md` (not this file) when guidelines/architecture/standards change.
+
+Read now: [AGENTS.md](./AGENTS.md)
+```
+
+## Step 1: Analyze Existing `AGENTS.md`
+
+Read the entire `AGENTS.md`. Before proposing any changes, perform a thorough review:
+
+1. **Build a Mental Map** — list all major sections and their purposes; note the organizational pattern
+2. **Catalog Existing Content** — key topics, conventions, commands, and workflows already documented
+3. **Flag Potential Conflicts** — topics that might overlap with session learnings; sections already comprehensive enough to skip
+
+This analysis MUST inform what changes are proposed in Step 3.
+
+## Step 2: Extract Session Learnings
+
+Review the conversation for:
+
+- Coding patterns and preferences discovered
+- Architecture decisions made
+- Gotchas or pitfalls encountered
+- Project conventions established
+- Debugging insights
+- Workflow preferences
+- Anything useful for another AI agent or human developer to be productive in this project
+
+If nothing meaningful was learned this session, say so and stop. Don't force updates.
+
+## Step 3: Propose Changes
+
+**Do NOT apply changes yet.**
+
+Present proposed changes using this format:
+
+````markdown
+## Proposed Changes to `AGENTS.md`
+
+> **Summary:** X additions, Y modifications, Z removals
+
+---
+
+### Additions (X)
+
+> **Section: [Section Name]**
+>
+> ```diff
+> + The new content being added
+> ```
+
+---
+
+### Modifications (Y)
+
+> **Section: [Section Name]**
+>
+> **Before:**
+>
+> ```diff
+> - The old content
+> ```
+>
+> **After:**
+>
+> ```diff
+> + The new content
+> ```
+
+---
+
+### Removals (Z)
+
+> **Section: [Section Name]**
+>
+> ```diff
+> - Content being removed
+> ```
+>
+> **Reason:** [Why this is being removed]
+````
+
+**Format requirements:**
+
+- Use blockquotes to create visual boxes
+- Include a summary line with counts
+- Use `diff` code blocks: `+` for additions, `-` for removals
+- Show Before/After for modifications
+- Require a reason for every removal
+
+Then ask: **"Do you want me to apply these changes to `AGENTS.md`?"**
+
+Wait for explicit confirmation before proceeding.
+
+## Step 4: Apply Changes
+
+Only after the user confirms, apply the approved changes to `AGENTS.md`.
+
+Merge with existing content — don't overwrite unrelated sections.
+
+## Step 5: Review `AGENTS.md` (Optional)
+
+After changes are applied, ask: **"Would you like me to review the entire `AGENTS.md` for cleanup opportunities?"**
+
+If accepted, review for:
+
+- **Duplicates** — same or near-identical instructions in multiple places
+- **Stale content** — references to old patterns, removed files, or outdated practices
+- **Consolidation** — related items scattered across sections that belong together
+- **Clarity** — unclear instructions or verbose content that could be tightened
+
+Present findings using the same format from Step 3. Wait for explicit confirmation before applying cleanup.
+
+## Tips
+
+- Prefer bullet points over paragraphs in `AGENTS.md`
+- Include specific file paths when referencing project structure
+- Avoid duplicating information already in `AGENTS.md`
+- When unsure whether something is worth capturing, include it only if it adds distinct guidance
+"""

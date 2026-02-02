@@ -136,21 +136,29 @@ Install the extension:
 gemini extensions install https://github.com/olshansk/agent-md
 ```
 
-> [!IMPORTANT]
-> You need to set the following settings in `.gemini/settings.json` to enable hooks:
-> ```json
-> {
->   "tools": {
->     "enableHooks": true
->   }
-> }
-> ```
+> [!NOTE]
+> After installing, restart Gemini CLI for the extension to take effect.
 
-Use the plugin:
+Run the command:
 
 ```bash
 /session-commit
 ```
+
+Update the extension:
+
+```bash
+gemini extensions install https://github.com/olshansk/agent-md
+```
+
+<details>
+<summary> (If you're not satisfied) Removing the extension </summary>
+
+```bash
+gemini extensions uninstall agent-md
+```
+
+</details>
 
 ---
 

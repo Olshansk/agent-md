@@ -18,7 +18,9 @@
 - `CLAUDE.md`, `CODEX.md`, `GEMINI.md` — minimal pointers to `AGENTS.md`
 - `.claude-plugin/plugin.json` — plugin manifest (name, version, author)
 - `.claude-plugin/marketplace.json` — marketplace listing metadata
-- `commands/session-commit.md` — the `/session-commit` command definition
+- `gemini-extension.json` — Gemini CLI extension manifest
+- `commands/session-commit.md` — the `/session-commit` command for Claude Code
+- `commands/session-commit.toml` — the `/session-commit` command for Gemini CLI
 - `templates/` — pointer file templates (CLAUDE.md, CODEX.md, GEMINI.md)
 
 ## Supported Tools

@@ -1,4 +1,4 @@
-# CLAUDE.md
+# GEMINI.md
 
 ⚠️ This file is intentionally minimal.
 
