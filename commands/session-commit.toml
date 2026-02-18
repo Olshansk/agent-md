@@ -3,6 +3,8 @@ prompt = """
 
 Analyze the current conversation to extract best practices and valuable learnings to the project's `AGENTS.md` file. This file is primarily targeted at agents, and serves to scale effectiveness across sessions.
 
+`AGENTS.md` is a **style and taste guide** — it captures patterns, conventions, and judgment calls. Specific file paths, function names, and implementation details belong in code comments and PR descriptions, not here.
+
 ## Preconditions
 
 Before starting, ensure the following files exist in the project root:
@@ -33,6 +35,7 @@ Read the entire `AGENTS.md`. Before proposing any changes, perform a thorough re
 1. **Build a Mental Map** — list all major sections and their purposes; note the organizational pattern
 2. **Catalog Existing Content** — key topics, conventions, commands, and workflows already documented
 3. **Flag Potential Conflicts** — topics that might overlap with session learnings; sections already comprehensive enough to skip
+4. **Identify Update Targets** — for each candidate learning, find the existing section most likely to absorb it; only flag as needing a new section if no existing one is a reasonable home
 
 This analysis MUST inform what changes are proposed in Step 3.
 
@@ -50,9 +53,25 @@ Review the conversation for:
 
 If nothing meaningful was learned this session, say so and stop. Don't force updates.
 
+## Writing Guidelines for `AGENTS.md`
+
+Apply these when composing proposed changes in Step 3.
+
+- **Bullet points over prose** — use bullets and sub-bullets, not paragraphs
+- **Keep lines short** — aim for ~120 characters per line (soft limit)
+- **Update existing sections first** — new headers are a last resort
+- **Avoid specific paths and function names** unless they:
+  - Serve as an example of a general pattern
+  - Are truly global defaults (e.g. config files, entry points)
+  - Test: "Would this guidance survive a file rename?" If no, leave it out
+- **No duplicate content** — if it's already in `AGENTS.md`, skip it
+- **When in doubt, leave it out** — only capture guidance not obvious from the code itself
+
 ## Step 3: Propose Changes
 
 **Do NOT apply changes yet.**
+
+**Exhaust updates before proposing additions.** Each learning should first be evaluated as a modification to an existing section. Only propose a new section/header when no existing section is a plausible home.
 
 Present proposed changes using this format:
 
@@ -133,10 +152,4 @@ If accepted, review for:
 
 Present findings using the same format from Step 3. Wait for explicit confirmation before applying cleanup.
 
-## Tips
-
-- Prefer bullet points over paragraphs in `AGENTS.md`
-- Include specific file paths when referencing project structure
-- Avoid duplicating information already in `AGENTS.md`
-- When unsure whether something is worth capturing, include it only if it adds distinct guidance
 """
