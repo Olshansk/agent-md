@@ -3,6 +3,8 @@
 
 # agent-md <!-- omit in toc -->
 
+`agent-md/session-commit`: Update your AGENTS.md after each session
+
 [![Codex CLI](https://img.shields.io/badge/Codex%20CLI-00A67E)](#codex-cli)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-D27656)](#claude-code)
 [![Gemini CLI](https://img.shields.io/badge/Gemini%20CLI-678AE3)](#gemini-cli)
