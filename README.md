@@ -1,7 +1,7 @@
-**`agent-md/session-commit`: Update your AGENTS.md after each session**
-
 > [!TIP]
 > This is the easiest way to keep your `AGENTS.md` in sync with your codebase's best practices and patterns.
+> 
+> **`agent-md/session-commit`: Update your AGENTS.md after each session**
 
 # agent-md <!-- omit in toc -->
 
