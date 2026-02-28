@@ -1,9 +1,9 @@
+**`agent-md/session-commit`: Update your AGENTS.md after each session**
+
 > [!TIP]
 > This is the easiest way to keep your `AGENTS.md` in sync with your codebase's best practices and patterns.
 
 # agent-md <!-- omit in toc -->
-
-`agent-md/session-commit`: Update your AGENTS.md after each session
 
 [![Codex CLI](https://img.shields.io/badge/Codex%20CLI-00A67E)](#codex-cli)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-D27656)](#claude-code)
