@@ -186,26 +186,15 @@ rm ~/.config/opencode/commands/session-commit.md
 
 ```mermaid
 flowchart LR
-    A["Code in any supported CLI"]:::work --> B["/session-commit"]:::run
-    B --> C["Extract and summarize learnings"]:::run
-    C --> D["Propose AGENTS.md diff"]:::review
-    D --> E{"Approve changes?"}:::gate
-    E -->|Yes| F["Update AGENTS.md"]:::commit
-    E -->|No| A
-    F --> G["Next session starts with better context"]:::value
-    G --> A
-    F --> H["Claude Code"]:::tool
-    F --> I["Codex CLI"]:::tool
-    F --> J["Gemini CLI"]:::tool
-    F --> K["OpenCode"]:::tool
+    A["Code"]:::work --> B["Iterate"]:::run
+    B --> C["/session-commit"]:::review
+    C --> D["Shared project memory in AGENTS.md"]:::value
+    D --> A
 
     classDef work fill:#81C784,color:#1B5E20,stroke:#66BB6A
     classDef run fill:#90CAF9,color:#0D47A1,stroke:#64B5F6
-    classDef review fill:#FFE082,color:#E65100,stroke:#FFCA28
-    classDef gate fill:#FFCC80,color:#E65100,stroke:#FFB74D
-    classDef commit fill:#80CBC4,color:#004D40,stroke:#4DB6AC
+    classDef review fill:#FFCC80,color:#E65100,stroke:#FFB74D
     classDef value fill:#CE93D8,color:#4A148C,stroke:#BA68C8
-    classDef tool fill:#B0BEC5,color:#263238,stroke:#90A4AE
 ```
 
 <!-- TODO: Add a real before/after AGENTS.md example from one session with a concise diff. -->
