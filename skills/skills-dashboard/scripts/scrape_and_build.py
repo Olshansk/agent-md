@@ -410,6 +410,53 @@ def build_html(skills: list[dict], owners: list[dict]) -> str:
   }}
   .data-attribution a:hover {{ color: #a78bfa; }}
 
+  /* Install CTA */
+  .install-section {{
+    text-align: center;
+    padding: 40px 20px;
+    margin: 20px 0;
+    background: rgba(124, 58, 237, 0.04);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    border-radius: 16px;
+  }}
+  .install-section h2 {{
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ccc;
+    margin-bottom: 8px;
+  }}
+  .install-section .install-subtitle {{
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }}
+  .install-code {{
+    display: inline-block;
+    background: #0d0d14;
+    border: 1px solid rgba(124, 58, 237, 0.25);
+    border-radius: 10px;
+    padding: 14px 24px;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 0.95rem;
+    color: #a78bfa;
+    letter-spacing: 0.02em;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }}
+  .install-code:hover {{
+    border-color: rgba(124, 58, 237, 0.5);
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.15);
+  }}
+  .install-code .copy-hint {{
+    display: block;
+    font-size: 0.7rem;
+    color: #555;
+    margin-top: 6px;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0;
+  }}
+
   /* Footer */
   .footer {{
     text-align: center;
@@ -691,10 +738,22 @@ const defaultLayout = {{
 }})();
 </script>
 
+<div class="section-divider"></div>
+
+<div class="install-section fade-in d7">
+  <h2>Generate This Dashboard Yourself</h2>
+  <p class="install-subtitle">Install the skill, then ask your agent to build the dashboard. No API keys needed.</p>
+  <div class="install-code" onclick="navigator.clipboard.writeText('npx skills add olshansk/agent-skills').then(() => this.querySelector('.copy-hint').textContent = 'Copied!')">
+    npx skills add olshansk/agent-skills
+    <span class="copy-hint">Click to copy</span>
+  </div>
+</div>
+
 <div class="footer fade-in d7">
   <span class="footer-brand">Skills.sh</span> &#8212;
   Built with <a href="https://plotly.com/javascript/">Plotly.js</a> &#183;
-  Data from <a href="https://skills.sh">skills.sh</a>
+  Data from <a href="https://skills.sh">skills.sh</a> &#183;
+  Created by <a href="https://github.com/Olshansk/agent-skills">Olshansk/agent-skills</a>
 </div>
 
 </div><!-- .container -->
