@@ -157,73 +157,221 @@ def build_html(skills: list[dict], owners: list[dict]) -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Skills.sh Ecosystem Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.plot.ly/plotly-2.35.0.min.js"></script>
 <style>
   * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+  html {{ scroll-behavior: smooth; }}
   body {{
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     background: #0a0a0f;
     color: #e0e0e0;
     min-height: 100vh;
+    line-height: 1.6;
   }}
-  .header {{
-    text-align: center;
-    padding: 40px 20px 20px;
-    background: linear-gradient(180deg, #12121a 0%, #0a0a0f 100%);
+  .container {{
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 16px;
   }}
-  .header h1 {{
-    font-size: 2.2rem;
-    font-weight: 700;
+
+  /* Animations */
+  @keyframes fadeInUp {{
+    from {{ opacity: 0; transform: translateY(24px); }}
+    to {{ opacity: 1; transform: translateY(0); }}
+  }}
+  @keyframes gradientShift {{
+    0%, 100% {{ background-position: 0% 50%; }}
+    50% {{ background-position: 100% 50%; }}
+  }}
+  @keyframes glowPulse {{
+    0%, 100% {{ opacity: 0.4; transform: scale(1); }}
+    50% {{ opacity: 0.7; transform: scale(1.05); }}
+  }}
+  .fade-in {{ animation: fadeInUp 0.6s ease-out both; }}
+  .d1 {{ animation-delay: 0.05s; }}
+  .d2 {{ animation-delay: 0.1s; }}
+  .d3 {{ animation-delay: 0.15s; }}
+  .d4 {{ animation-delay: 0.2s; }}
+  .d5 {{ animation-delay: 0.25s; }}
+  .d6 {{ animation-delay: 0.3s; }}
+  .d7 {{ animation-delay: 0.35s; }}
+
+  /* Sticky nav */
+  .nav {{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(124, 58, 237, 0.15);
+    padding: 12px 0;
+  }}
+  .nav-inner {{
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+  }}
+  .nav-brand {{
+    font-weight: 800;
+    font-size: 1rem;
     background: linear-gradient(135deg, #7c3aed, #06b6d4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 8px;
   }}
-  .header p {{
+  .nav-links {{
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }}
+  .nav-links a {{
     color: #888;
-    font-size: 1rem;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: color 0.2s;
   }}
+  .nav-links a:hover {{ color: #c4b5fd; }}
+
+  /* Header */
+  .header {{
+    text-align: center;
+    padding: 60px 20px 24px;
+    position: relative;
+    overflow: hidden;
+  }}
+  .header::before {{
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, transparent 70%);
+    animation: glowPulse 8s ease-in-out infinite;
+    pointer-events: none;
+  }}
+  .header h1 {{
+    font-size: 2.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #7c3aed, #a78bfa, #06b6d4, #7c3aed);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 6s ease infinite;
+    margin-bottom: 10px;
+    position: relative;
+  }}
+  .header .tagline {{
+    color: #888;
+    font-size: 1.05rem;
+    position: relative;
+  }}
+
+  /* Stat cards */
   .stats-row {{
     display: flex;
     justify-content: center;
-    gap: 40px;
-    padding: 20px;
+    gap: 24px;
+    padding: 24px 20px;
     flex-wrap: wrap;
   }}
   .stat {{
     text-align: center;
+    background: rgba(124, 58, 237, 0.06);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    border-radius: 16px;
+    padding: 24px 32px;
+    min-width: 160px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }}
+  .stat::before {{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #7c3aed, #06b6d4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }}
+  .stat:hover {{
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(124, 58, 237, 0.2);
+    border-color: rgba(124, 58, 237, 0.3);
+  }}
+  .stat:hover::before {{ opacity: 1; }}
+  .stat .icon {{
+    font-size: 1.5rem;
+    margin-bottom: 6px;
   }}
   .stat .num {{
     font-size: 2rem;
     font-weight: 700;
-    color: #7c3aed;
+    background: linear-gradient(135deg, #7c3aed, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }}
   .stat .label {{
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #666;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    margin-top: 4px;
   }}
+
+  /* Section dividers */
+  .section-divider {{
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.3), transparent);
+    margin: 12px 0;
+  }}
+
+  /* Chart sections */
   .chart-section {{
-    padding: 20px 30px;
+    padding: 24px 0;
   }}
   .chart-section h2 {{
     font-size: 1.3rem;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 4px;
     color: #ccc;
+    padding-left: 16px;
+    border-left: 3px solid transparent;
+    border-image: linear-gradient(180deg, #7c3aed, #06b6d4) 1;
+    letter-spacing: -0.01em;
   }}
   .chart-section .subtitle {{
     font-size: 0.85rem;
     color: #666;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    padding-left: 19px;
   }}
   .chart-container {{
     background: #111118;
-    border-radius: 12px;
+    border-radius: 16px;
     border: 1px solid #1e1e2e;
     padding: 10px;
     margin-bottom: 30px;
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }}
+  .chart-container:hover {{
+    transform: translateY(-2px);
+    box-shadow: 0 4px 32px rgba(124, 58, 237, 0.12);
+    border-color: rgba(124, 58, 237, 0.25);
   }}
   .grid-2 {{
     display: grid;
@@ -232,32 +380,93 @@ def build_html(skills: list[dict], owners: list[dict]) -> str:
   }}
   @media (max-width: 900px) {{
     .grid-2 {{ grid-template-columns: 1fr; }}
+    .nav-links {{ gap: 12px; }}
+    .header h1 {{ font-size: 2rem; }}
+    .stats-row {{ gap: 12px; }}
+    .stat {{ min-width: 130px; padding: 16px 20px; }}
   }}
-  .footer {{
+
+  /* Data attribution */
+  .data-attribution {{
     text-align: center;
-    padding: 30px;
     color: #444;
     font-size: 0.8rem;
+    padding-bottom: 12px;
   }}
-  .footer a {{ color: #7c3aed; text-decoration: none; }}
+  .data-attribution a {{
+    color: #7c3aed;
+    text-decoration: none;
+    transition: color 0.2s;
+  }}
+  .data-attribution a:hover {{ color: #a78bfa; }}
+
+  /* Footer */
+  .footer {{
+    text-align: center;
+    padding: 32px 20px;
+    color: #444;
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(124, 58, 237, 0.1);
+    margin-top: 20px;
+  }}
+  .footer .footer-brand {{
+    font-weight: 700;
+    background: linear-gradient(135deg, #7c3aed, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }}
+  .footer a {{ color: #7c3aed; text-decoration: none; transition: color 0.2s; }}
+  .footer a:hover {{ color: #a78bfa; }}
 </style>
 </head>
 <body>
 
-<div class="header">
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="nav-brand">Skills.sh</span>
+    <ul class="nav-links">
+      <li><a href="#publishers">Publishers</a></li>
+      <li><a href="#top-skills-section">Top Skills</a></li>
+      <li><a href="#treemap-section">Treemap</a></li>
+      <li><a href="#distribution">Distribution</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+
+<div class="header fade-in d1">
   <h1>Skills.sh Ecosystem Dashboard</h1>
-  <p>Distribution of {len(skills):,} agent skills across {len(owners):,} publishers</p>
+  <p class="tagline">Distribution of {len(skills):,} agent skills across {len(owners):,} publishers</p>
 </div>
 
-<div class="stats-row">
-  <div class="stat"><div class="num">{len(skills):,}</div><div class="label">Total Skills</div></div>
-  <div class="stat"><div class="num">{len(owners):,}</div><div class="label">Publishers</div></div>
-  <div class="stat"><div class="num">{sum(o["repos"] for o in owners):,}</div><div class="label">Repos</div></div>
-  <div class="stat"><div class="num">{total_installs_label}</div><div class="label">Total Installs</div></div>
+<div class="stats-row fade-in d2">
+  <div class="stat">
+    <div class="icon">&#128230;</div>
+    <div class="num">{len(skills):,}</div>
+    <div class="label">Total Skills</div>
+  </div>
+  <div class="stat">
+    <div class="icon">&#128100;</div>
+    <div class="num">{len(owners):,}</div>
+    <div class="label">Publishers</div>
+  </div>
+  <div class="stat">
+    <div class="icon">&#128193;</div>
+    <div class="num">{sum(o["repos"] for o in owners):,}</div>
+    <div class="label">Repos</div>
+  </div>
+  <div class="stat">
+    <div class="icon">&#11015;&#65039;</div>
+    <div class="num">{total_installs_label}</div>
+    <div class="label">Total Installs</div>
+  </div>
 </div>
-<p style="text-align:center; color:#444; font-size:0.8rem; padding-bottom:10px;">Data scraped from <a href="https://skills.sh" style="color:#7c3aed; text-decoration:none;">skills.sh</a> on {today}. Built with Plotly.js.</p>
+<p class="data-attribution fade-in d2">Data scraped from <a href="https://skills.sh">skills.sh</a> on {today}</p>
 
-<div class="chart-section grid-2">
+<div class="section-divider"></div>
+
+<div class="chart-section grid-2 fade-in d3" id="publishers">
   <div>
     <h2>Top 25 Publishers by Skill Count</h2>
     <p class="subtitle">Who is publishing the most skills?</p>
@@ -270,19 +479,25 @@ def build_html(skills: list[dict], owners: list[dict]) -> str:
   </div>
 </div>
 
-<div class="chart-section">
+<div class="section-divider"></div>
+
+<div class="chart-section fade-in d4" id="top-skills-section">
   <h2>Top 30 Individual Skills by Installs</h2>
   <p class="subtitle">The most installed individual skills across the ecosystem</p>
   <div class="chart-container"><div id="top-skills" style="height:650px;"></div></div>
 </div>
 
-<div class="chart-section">
+<div class="section-divider"></div>
+
+<div class="chart-section fade-in d5" id="treemap-section">
   <h2>Treemap: Install Share by Publisher</h2>
   <p class="subtitle">Size = total installs. Hover for details. Click to zoom into a publisher's skills.</p>
   <div class="chart-container"><div id="treemap" style="height:550px;"></div></div>
 </div>
 
-<div class="chart-section">
+<div class="section-divider"></div>
+
+<div class="chart-section fade-in d6" id="distribution">
   <h2>Install Distribution: Power Law</h2>
   <p class="subtitle">Log-scale histogram showing the long tail of skill installs</p>
   <div class="chart-container"><div id="histogram" style="height:400px;"></div></div>
@@ -304,7 +519,7 @@ const colorscale = [
 const defaultLayout = {{
   paper_bgcolor: paperBg,
   plot_bgcolor: plotBg,
-  font: {{ color: fontColor, family: '-apple-system, system-ui, sans-serif' }},
+  font: {{ color: fontColor, family: 'Inter, -apple-system, system-ui, sans-serif' }},
   margin: {{ t: 20, b: 40, l: 50, r: 20 }},
 }};
 
@@ -375,7 +590,7 @@ const defaultLayout = {{
     ...defaultLayout,
     xaxis: {{ gridcolor: gridColor, color: fontColor, title: 'Skills', autorange: true }},
     yaxis: {{ color: fontColor, tickfont: {{ size: 11 }} }},
-    margin: {{ t: 10, b: 50, l: 140, r: 80 }},
+    margin: {{ t: 10, b: 50, l: 140, r: 100 }},
   }}, {{ responsive: true }});
 }})();
 
@@ -401,7 +616,7 @@ const defaultLayout = {{
     ...defaultLayout,
     xaxis: {{ gridcolor: gridColor, color: fontColor, title: 'Total Installs', autorange: true }},
     yaxis: {{ color: fontColor, tickfont: {{ size: 11 }} }},
-    margin: {{ t: 10, b: 50, l: 140, r: 80 }},
+    margin: {{ t: 10, b: 50, l: 140, r: 100 }},
   }}, {{ responsive: true }});
 }})();
 
@@ -465,6 +680,14 @@ const defaultLayout = {{
   }}, {{ responsive: true }});
 }})();
 </script>
+
+<div class="footer fade-in d7">
+  <span class="footer-brand">Skills.sh</span> &#8212;
+  Built with <a href="https://plotly.com/javascript/">Plotly.js</a> &#183;
+  Data from <a href="https://skills.sh">skills.sh</a>
+</div>
+
+</div><!-- .container -->
 </body>
 </html>'''
 
