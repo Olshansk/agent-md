@@ -13,6 +13,7 @@ import json
 import os
 import sys
 import time
+import urllib.error
 import urllib.request
 from collections import defaultdict
 from datetime import date
@@ -34,13 +35,22 @@ SEARCH_QUERIES = [
 ]
 
 
-def _fetch_query(query: str, limit: int = 100_000) -> list[dict]:
+def _fetch_query(query: str, limit: int = 100_000, retries: int = 3) -> list[dict]:
     """Fetch skills matching a search query from the skills.sh API."""
     url = f"{API_BASE}?q={query}&limit={limit}"
     req = urllib.request.Request(url, headers={"User-Agent": "skills-dashboard/1.0"})
-    with urllib.request.urlopen(req, timeout=60) as resp:
-        data = json.loads(resp.read().decode("utf-8"))
-    return data.get("skills", [])
+    for attempt in range(retries):
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+            return data.get("skills", [])
+        except (urllib.error.URLError, TimeoutError) as e:
+            if attempt < retries - 1:
+                wait = 2 ** attempt
+                print(f"    Retry {attempt + 1}/{retries} for q={query} ({e}), waiting {wait}s...")
+                time.sleep(wait)
+            else:
+                raise
 
 
 def _load_cache() -> list[dict] | None:
