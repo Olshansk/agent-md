@@ -22,6 +22,8 @@
 - Primary distribution: `npx skills add olshansk/agent-skills`
 - Also published for Agent Skills ecosystem discovery: https://agentskills.io/home
 
+## Table of Contents <!-- omit in toc -->
+
 - [Quickstart](#quickstart)
 - [Available Skills](#available-skills)
 - [Session Commit Skill](#session-commit-skill)
@@ -31,10 +33,7 @@
   - [Gemini CLI](#gemini-cli)
   - [OpenCode](#opencode)
 - [At A Glance](#at-a-glance)
-- [Specification Alignment](#specification-alignment)
-- [Authoring New Skills](#authoring-new-skills)
 - [Validation](#validation)
-- [Repository Layout](#repository-layout)
 - [Star History](#star-history)
 
 ## Quickstart
@@ -80,10 +79,10 @@ Use this if you are not using `npx skills add` yet.
 
 | Tool        | Install                                                                                                                                                                             | Run command                    |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| Codex CLI   | `mkdir -p ~/.codex/prompts && curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-skills/main/commands/session-commit.md`                   | `/prompts:session-commit`      |
+| Codex CLI   | `mkdir -p ~/.codex/prompts && curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-skills/main/skills/session-commit/commands/session-commit.md`                   | `/prompts:session-commit`      |
 | Claude Code | `/plugin marketplace add olshansk/agent-skills` then `/plugin install agent-skills@olshansk`                                                                                      | `/agent-skills:session-commit` |
 | Gemini CLI  | `gemini extensions install https://github.com/olshansk/agent-skills`                                                                                                               | `/session-commit`              |
-| OpenCode    | `mkdir -p ~/.config/opencode/commands && curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-skills/main/commands/session-commit.md` | `/session-commit`              |
+| OpenCode    | `mkdir -p ~/.config/opencode/commands && curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-skills/main/skills/session-commit/commands/session-commit.md` | `/session-commit`              |
 
 <details>
 <summary><h3 id="codex-cli">Codex CLI</h3></summary>
@@ -92,7 +91,7 @@ Install:
 
 ```bash
 mkdir -p ~/.codex/prompts
-curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-skills/main/commands/session-commit.md
+curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-skills/main/skills/session-commit/commands/session-commit.md
 ```
 
 Run:
@@ -104,7 +103,7 @@ Run:
 Update:
 
 ```bash
-curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-skills/main/commands/session-commit.md
+curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-skills/main/skills/session-commit/commands/session-commit.md
 ```
 
 Remove:
@@ -187,7 +186,7 @@ Install:
 
 ```bash
 mkdir -p ~/.config/opencode/commands
-curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-skills/main/commands/session-commit.md
+curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-skills/main/skills/session-commit/commands/session-commit.md
 ```
 
 Run:
@@ -199,7 +198,7 @@ Run:
 Update:
 
 ```bash
-curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-skills/main/commands/session-commit.md
+curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-skills/main/skills/session-commit/commands/session-commit.md
 ```
 
 Remove:
@@ -227,50 +226,9 @@ flowchart LR
 
 <!-- TODO: Add a real before/after AGENTS.md example from one session with a concise diff. -->
 
-## Specification Alignment
-
-This repo follows the Agent Skills format and guidance:
-
-- Home: https://agentskills.io/home
-- Specification: https://agentskills.io/specification#skill-md-format
-- Documentation index: https://agentskills.io/llms.txt
-- Script usage guide: https://agentskills.io/using-scripts-in-skills
-
-## Authoring New Skills
-
-Directory pattern:
-
-```text
-skills/<skill-name>/
-  SKILL.md
-  scripts/        # optional
-  references/     # optional
-  assets/         # optional
-```
-
-`SKILL.md` requirements:
-
-- YAML frontmatter is required
-- `name` must match the directory name and be kebab-case
-- `description` should say what it does and when to use it
-- Keep main instruction file concise; move details to `references/`
-
 ## Validation
 
-Run local checks:
-
-```bash
-python tools/validate_skills.py
-```
-
-CI also runs this validator on changes under `skills/**`.
-
-## Repository Layout
-
-- `skills/` - installable skills catalog
-- `commands/` - legacy per-tool command files for manual install fallback
-- `.claude-plugin/` - Claude Code marketplace metadata (legacy fallback path)
-- `tools/validate_skills.py` - frontmatter and naming validator
+CI runs skill validation on changes under `skills/**`.
 
 ## Star History
 

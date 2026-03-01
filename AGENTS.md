@@ -19,10 +19,8 @@
 - `skills/session-commit/SKILL.md` — spec-compliant instruction file for the session-commit skill
 - `skills/session-commit/scripts/preflight.sh` — validates required instruction files and can repair missing/empty files
 - `skills/session-commit/references/` — additional docs loaded on demand
-- `skills/session-commit/assets/` — reusable templates (for example pointer file template)
-- `tools/validate_skills.py` — validates skill frontmatter and naming constraints
+- `skills/session-commit/commands/` — legacy per-tool command files for manual install fallback
 - `.github/workflows/skills-validate.yml` — CI workflow for skill validation
-- `commands/` — legacy manual-install command files for fallback paths
 - `.claude-plugin/`, `gemini-extension.json` — legacy fallback metadata for tool-specific installs
 
 ## Supported Tools
@@ -30,18 +28,32 @@
 | Tool        | Preferred install path                         | Fallback path in this repo |
 | ----------- | ---------------------------------------------- | -------------------------- |
 | Claude Code | `npx skills add olshansk/agent-skills`         | `.claude-plugin/`          |
-| Codex CLI   | `npx skills add olshansk/agent-skills`         | `commands/session-commit.md` |
-| Gemini CLI  | `npx skills add olshansk/agent-skills`         | `commands/session-commit.toml` |
-| OpenCode    | `npx skills add olshansk/agent-skills`         | `commands/session-commit.md` |
+| Codex CLI   | `npx skills add olshansk/agent-skills`         | `skills/session-commit/commands/session-commit.md` |
+| Gemini CLI  | `npx skills add olshansk/agent-skills`         | `skills/session-commit/commands/session-commit.toml` |
+| OpenCode    | `npx skills add olshansk/agent-skills`         | `skills/session-commit/commands/session-commit.md` |
 
 ## Skill Authoring Standards
 
-- Every skill directory must include `SKILL.md`
-- `SKILL.md` must begin with YAML frontmatter containing at least:
-  - `name`
-  - `description`
+Directory pattern:
+
+```text
+skills/<skill-name>/
+  SKILL.md
+  scripts/        # optional
+  references/     # optional
+  assets/         # optional
+  commands/       # optional — legacy per-tool command files
+```
+
+`SKILL.md` requirements:
+
+- YAML frontmatter is required with at least `name` and `description`
 - `name` must match the skill directory name and be kebab-case
+- `description` should say what it does and when to use it
 - Keep `SKILL.md` concise; move extended content to `references/`
+
+Scripts:
+
 - Use `scripts/` for reusable or complex command logic
 - Scripts must be non-interactive and safe for agent execution
 - Prefer structured stdout and diagnostic stderr in scripts
