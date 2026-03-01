@@ -59,3 +59,20 @@ All data comes from the `skills.sh/api/search` endpoint. Each entry has:
   "installs": 12345
 }
 ```
+
+## Generate It Yourself
+
+**Install the skill:**
+
+```bash
+npx skills add olshansk/agent-skills
+```
+
+Select `skills-dashboard` when prompted.
+
+**Then:**
+
+1. Launch your agent CLI of choice (Claude Code, Codex, Gemini CLI, OpenCode)
+2. Ask it to "build the skills ecosystem dashboard"
+
+No API keys needed — the skill scrapes the public skills.sh registry and outputs a self-contained HTML file.
