@@ -5,9 +5,10 @@
 - skills/README.md
 - skills/session-commit/SKILL.md
 - skills/session-commit/references/change-proposal-format.md
-- tools/validate_skills.py
-- commands/session-commit.md
-- commands/session-commit.toml
+- skills/session-commit/commands/session-commit.md
+- skills/session-commit/commands/session-commit.toml
+- skills/skills-dashboard/SKILL.md
+- skills/skills-dashboard/scripts/scrape_and_build.py
 
 External references:
 

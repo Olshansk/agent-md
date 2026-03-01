@@ -10,16 +10,13 @@
 
 - Multi-skill catalog for agentic CLIs
 - Canonical distribution path: `npx skills add olshansk/agent-skills`
-- Primary skill in this repo: `skills/session-commit`
-- Purpose: preserve durable project learnings in `AGENTS.md` across sessions and tools
+- Skills: `session-commit`, `skills-dashboard`
 
 ## Project Structure
 
 - `skills/` — installable skills
-- `skills/session-commit/SKILL.md` — spec-compliant instruction file for the session-commit skill
-- `skills/session-commit/scripts/preflight.sh` — validates required instruction files and can repair missing/empty files
-- `skills/session-commit/references/` — additional docs loaded on demand
-- `skills/session-commit/commands/` — legacy per-tool command files for manual install fallback
+- `skills/session-commit/` — captures session learnings and updates `AGENTS.md`
+- `skills/skills-dashboard/` — scrapes skills.sh and generates an interactive HTML dashboard
 - `.github/workflows/skills-validate.yml` — CI workflow for skill validation
 - `.claude-plugin/`, `gemini-extension.json` — legacy fallback metadata for tool-specific installs
 

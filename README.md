@@ -10,11 +10,11 @@
 [![OpenCode](https://img.shields.io/badge/OpenCode-3B82F6)](#manual-install-fallback)
 [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
 
-<!-- TODO: Add a 30-second demo GIF/video here (install -> run session-commit -> AGENTS.md diff). -->
+<!-- TODO: Add a 30-second demo GIF/video here (install -> run a skill -> show output). -->
 
 > [!NOTE]
 > **Early traction:** Teams using multi-agent workflows report less repeated
-> prompting and faster onboarding after adopting `session-commit`.
+> prompting and faster onboarding after adopting these skills.
 >
 > "We made this part of our end-of-session routine and handoffs got cleaner." - Maya L., OSS maintainer
 
@@ -26,7 +26,6 @@
 
 - [Quickstart](#quickstart)
 - [Available Skills](#available-skills)
-- [Session Commit Skill](#session-commit-skill)
 - [Manual Install Fallback](#manual-install-fallback)
   - [Codex CLI](#codex-cli)
   - [Claude Code](#claude-code)
@@ -44,34 +43,14 @@ Install the catalog:
 npx skills add olshansk/agent-skills
 ```
 
-Then ask your agent to run `session-commit` at the end of each coding session.
+Then ask your agent to run any installed skill (e.g., "close the loop", "generate skills dashboard").
 
 ## Available Skills
 
-| Skill            | What it does                                              | Trigger examples                                      |
-| ---------------- | --------------------------------------------------------- | ----------------------------------------------------- |
-| `session-commit` | Captures session learnings and updates `AGENTS.md` safely | "run session commit", "close the loop", "update AGENTS.md" |
-
-## Session Commit Skill
-
-Location:
-
-```text
-skills/session-commit/
-```
-
-Core files:
-
-- `skills/session-commit/SKILL.md`
-- `skills/session-commit/scripts/preflight.sh`
-- `skills/session-commit/references/change-proposal-format.md`
-
-What it enforces:
-
-- Reads and maps existing `AGENTS.md` before proposing changes
-- Captures only durable learnings from the current session
-- Requires explicit approval before applying edits
-- Keeps pointer files (`CLAUDE.md`, `CODEX.md`, `GEMINI.md`) as symlinks to `AGENTS.md`
+| Skill              | What it does                                                    | Trigger examples                                               |
+| ------------------ | --------------------------------------------------------------- | -------------------------------------------------------------- |
+| `session-commit`   | Captures session learnings and updates `AGENTS.md` safely       | "run session commit", "close the loop", "update AGENTS.md"     |
+| `skills-dashboard` | Scrapes skills.sh and generates an interactive HTML dashboard   | "generate skills dashboard", "show skills ecosystem"           |
 
 ## Manual Install Fallback
 
@@ -214,8 +193,8 @@ rm ~/.config/opencode/commands/session-commit.md
 ```mermaid
 flowchart LR
     A["Code"]:::work --> B["Iterate"]:::run
-    B --> C["session-commit"]:::review
-    C --> D["Shared project memory in AGENTS.md"]:::value
+    B --> C["Run skills"]:::review
+    C --> D["Shared project memory"]:::value
     D --> A
 
     classDef work fill:#81C784,color:#1B5E20,stroke:#66BB6A
@@ -223,8 +202,6 @@ flowchart LR
     classDef review fill:#FFCC80,color:#E65100,stroke:#FFB74D
     classDef value fill:#CE93D8,color:#4A148C,stroke:#BA68C8
 ```
-
-<!-- TODO: Add a real before/after AGENTS.md example from one session with a concise diff. -->
 
 ## Validation
 

@@ -5,13 +5,11 @@ on:
     branches: [main]
     paths:
       - 'skills/**'
-      - 'tools/validate_skills.py'
       - '.github/workflows/skills-validate.yml'
   pull_request:
     branches: [main]
     paths:
       - 'skills/**'
-      - 'tools/validate_skills.py'
       - '.github/workflows/skills-validate.yml'
 
 jobs:
@@ -22,4 +20,30 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: python tools/validate_skills.py
+      - name: Validate skill frontmatter
+        run: |
+          python -c "
+          import yaml, pathlib, sys
+          errors = []
+          for skill_md in pathlib.Path('skills').rglob('SKILL.md'):
+              text = skill_md.read_text()
+              if not text.startswith('---'):
+                  errors.append(f'{skill_md}: missing YAML frontmatter')
+                  continue
+              parts = text.split('---', 2)
+              if len(parts) < 3:
+                  errors.append(f'{skill_md}: malformed frontmatter')
+                  continue
+              meta = yaml.safe_load(parts[1])
+              if not meta.get('name'):
+                  errors.append(f'{skill_md}: missing name')
+              if not meta.get('description'):
+                  errors.append(f'{skill_md}: missing description')
+              expected = skill_md.parent.name
+              if meta.get('name') != expected:
+                  errors.append(f'{skill_md}: name \"{meta.get(\"name\")}\" != directory \"{expected}\"')
+          if errors:
+              print('\n'.join(errors), file=sys.stderr)
+              sys.exit(1)
+          print(f'Validated {len(list(pathlib.Path(\"skills\").rglob(\"SKILL.md\")))} skills OK')
+          "
