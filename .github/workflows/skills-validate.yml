@@ -20,6 +20,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install dependencies
+        run: pip install pyyaml
       - name: Validate skill frontmatter
         run: |
           python -c "
