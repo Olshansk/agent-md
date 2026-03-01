@@ -49,7 +49,8 @@
 | Gemini CLI  | `gemini extensions install https://github.com/olshansk/agent-md`                                                                                                                | `/session-commit`          |
 | OpenCode    | `mkdir -p ~/.config/opencode/commands && curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md` | `/session-commit`          |
 
-### Codex CLI
+<details>
+<summary><h3 id="codex-cli">Codex CLI</h3></summary>
 
 **Codex reads `AGENTS.md` natively**: https://developers.openai.com/codex/guides/agents-md
 
@@ -78,7 +79,10 @@ Remove:
 rm ~/.codex/prompts/session-commit.md
 ```
 
-### Claude Code
+</details>
+
+<details>
+<summary><h3 id="claude-code">Claude Code</h3></summary>
 
 Add marketplace:
 
@@ -113,7 +117,10 @@ Remove:
 /plugin marketplace remove olshansk
 ```
 
-### Gemini CLI
+</details>
+
+<details>
+<summary><h3 id="gemini-cli">Gemini CLI</h3></summary>
 
 Install:
 
@@ -141,7 +148,10 @@ Remove:
 gemini extensions uninstall agent-md
 ```
 
-### OpenCode
+</details>
+
+<details>
+<summary><h3 id="opencode">OpenCode</h3></summary>
 
 **OpenCode reads `AGENTS.md` natively**: https://opencode.ai/docs/rules/
 
@@ -170,22 +180,24 @@ Remove:
 rm ~/.config/opencode/commands/session-commit.md
 ```
 
+</details>
+
 ## At A Glance
 
 ```mermaid
 flowchart LR
-    A[Code in any supported CLI]:::work --> B[/session-commit]:::run
-    B --> C[Extract and summarize learnings]:::run
-    C --> D[Propose AGENTS.md diff]:::review
-    D --> E{Approve changes?}:::gate
-    E -->|Yes| F[Update AGENTS.md]:::commit
+    A["Code in any supported CLI"]:::work --> B["/session-commit"]:::run
+    B --> C["Extract and summarize learnings"]:::run
+    C --> D["Propose AGENTS.md diff"]:::review
+    D --> E{"Approve changes?"}:::gate
+    E -->|Yes| F["Update AGENTS.md"]:::commit
     E -->|No| A
-    F --> G[Next session starts with better context]:::value
+    F --> G["Next session starts with better context"]:::value
     G --> A
-    F --> H[Claude Code]:::tool
-    F --> I[Codex CLI]:::tool
-    F --> J[Gemini CLI]:::tool
-    F --> K[OpenCode]:::tool
+    F --> H["Claude Code"]:::tool
+    F --> I["Codex CLI"]:::tool
+    F --> J["Gemini CLI"]:::tool
+    F --> K["OpenCode"]:::tool
 
     classDef work fill:#81C784,color:#1B5E20,stroke:#66BB6A
     classDef run fill:#90CAF9,color:#0D47A1,stroke:#64B5F6
@@ -220,13 +232,13 @@ flowchart LR
 
 ```mermaid
 graph TD
-    A[Load current AGENTS.md]:::action --> B[Analyze current session]:::action
-    B --> C[Generate proposed diff]:::review
-    C --> D{User approves?}:::decision
-    D -->|Yes| E[Write updates to AGENTS.md]:::action
-    D -->|No| F[Keep AGENTS.md unchanged]:::outcome
-    E --> G[Ensure CLAUDE.md / GEMINI.md / CODEX.md pointers exist]:::action
-    G --> H[Updated guidance available in next session]:::outcome
+    A["Load current AGENTS.md"]:::action --> B["Analyze current session"]:::action
+    B --> C["Generate proposed diff"]:::review
+    C --> D{"User approves?"}:::decision
+    D -->|Yes| E["Write updates to AGENTS.md"]:::action
+    D -->|No| F["Keep AGENTS.md unchanged"]:::outcome
+    E --> G["Ensure CLAUDE.md / GEMINI.md / CODEX.md pointers exist"]:::action
+    G --> H["Updated guidance available in next session"]:::outcome
 
     classDef action fill:#90CAF9,color:#0D47A1,stroke:#64B5F6
     classDef review fill:#FFE082,color:#E65100,stroke:#FFCA28
