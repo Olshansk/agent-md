@@ -54,7 +54,7 @@ bash scripts/preflight.sh --fix
 
 ## Pointer file behavior
 
-If `CLAUDE.md`, `CODEX.md`, or `GEMINI.md` are missing or empty, create them from `assets/pointer-template.md` by replacing `{TOOL}`.
+If `CLAUDE.md`, `CODEX.md`, or `GEMINI.md` are missing or empty, create symlinks that point to `AGENTS.md`.
 
 ## Output contract
 

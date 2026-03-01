@@ -66,14 +66,13 @@ Core files:
 - `skills/session-commit/SKILL.md`
 - `skills/session-commit/scripts/preflight.sh`
 - `skills/session-commit/references/change-proposal-format.md`
-- `skills/session-commit/assets/pointer-template.md`
 
 What it enforces:
 
 - Reads and maps existing `AGENTS.md` before proposing changes
 - Captures only durable learnings from the current session
 - Requires explicit approval before applying edits
-- Keeps pointer files (`CLAUDE.md`, `CODEX.md`, `GEMINI.md`) aligned
+- Keeps pointer files (`CLAUDE.md`, `CODEX.md`, `GEMINI.md`) as symlinks to `AGENTS.md`
 
 ## Manual Install Fallback
 

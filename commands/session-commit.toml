@@ -9,23 +9,13 @@ Analyze the current conversation to extract best practices and valuable learning
 
 Before starting, ensure the following files exist in the project root:
 
-- `AGENTS.md` — if missing, create it, then move any guidance found in pointer files into `AGENTS.md` and reset pointer files to the template below
-- `CLAUDE.md`, `GEMINI.md`, `CODEX.md` — if any are missing or empty, create them using this template (replacing `{TOOL}` with the file name):
+- `AGENTS.md` — if missing, create it, then move any guidance found in pointer files into `AGENTS.md`
+- `CLAUDE.md`, `GEMINI.md`, `CODEX.md` — if any are missing or empty, recreate them as symlinks to `AGENTS.md`:
 
-```markdown
-# {TOOL}.md
-
-This file is intentionally minimal.
-
-**Authoritative project instructions live in `AGENTS.md`.**
-
-You must:
-
-1. Open and follow `AGENTS.md` before doing any work.
-2. Treat `AGENTS.md` as the single source of truth for all operations.
-3. Update `AGENTS.md` (not this file) when guidelines/architecture/standards change.
-
-Read now: [AGENTS.md](./AGENTS.md)
+```bash
+ln -sfn AGENTS.md CLAUDE.md
+ln -sfn AGENTS.md CODEX.md
+ln -sfn AGENTS.md GEMINI.md
 ```
 
 ## Step 1: Analyze Existing `AGENTS.md`

@@ -5,7 +5,6 @@
 - skills/README.md
 - skills/session-commit/SKILL.md
 - skills/session-commit/references/change-proposal-format.md
-- skills/session-commit/assets/pointer-template.md
 - tools/validate_skills.py
 - commands/session-commit.md
 - commands/session-commit.toml

@@ -6,6 +6,7 @@ usage() {
 Usage: scripts/preflight.sh [--fix] [--root <path>] [--help]
 
 Checks that AGENTS.md and pointer files exist and are non-empty.
+When repairing, creates symlinks from CLAUDE.md/CODEX.md/GEMINI.md to AGENTS.md.
 Outputs JSON to stdout and diagnostics to stderr.
 
 Options:
@@ -59,23 +60,9 @@ if $fix; then
   mkdir -p "$root"
 fi
 
-pointer_template() {
-  local tool="$1"
-  cat <<'EOF_TEMPLATE' | sed "s/{TOOL}/$tool/g"
-# {TOOL}.md
-
-This file is intentionally minimal.
-
-**Authoritative project instructions live in `AGENTS.md`.**
-
-You must:
-
-1. Open and follow `AGENTS.md` before doing any work.
-2. Treat `AGENTS.md` as the single source of truth for all operations.
-3. Update `AGENTS.md` (not this file) when guidelines, architecture, or standards change.
-
-Read now: [AGENTS.md](./AGENTS.md)
-EOF_TEMPLATE
+create_pointer_symlink() {
+  local path="$1"
+  ln -sfn "AGENTS.md" "$path"
 }
 
 create_agents_if_needed() {
@@ -105,8 +92,7 @@ if $fix; then
     if [[ "$file" == "AGENTS.md" ]]; then
       create_agents_if_needed "$path"
     else
-      tool="${file%.md}"
-      pointer_template "$tool" > "$path"
+      create_pointer_symlink "$path"
     fi
     fixed+=("$file")
   done
@@ -117,8 +103,7 @@ if $fix; then
     if [[ "$file" == "AGENTS.md" ]]; then
       create_agents_if_needed "$path"
     else
-      tool="${file%.md}"
-      pointer_template "$tool" > "$path"
+      create_pointer_symlink "$path"
     fi
     fixed+=("$file")
   done
