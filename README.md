@@ -192,10 +192,10 @@ rm ~/.config/opencode/commands/session-commit.md
 
 ```mermaid
 flowchart LR
-    A["Code"]:::work --> B["Iterate"]:::run
-    B --> C["Run skills"]:::review
-    C --> D["Shared project memory"]:::value
-    D --> A
+    A["Code with any agent"]:::work --> B["/session-commit"]:::run
+    B --> C["Extract & propose learnings"]:::review
+    C --> D["AGENTS.md updated"]:::value
+    D -->|"Next session starts informed"| A
 
     classDef work fill:#81C784,color:#1B5E20,stroke:#66BB6A
     classDef run fill:#90CAF9,color:#0D47A1,stroke:#64B5F6

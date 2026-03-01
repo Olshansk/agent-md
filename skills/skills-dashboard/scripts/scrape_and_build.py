@@ -694,7 +694,7 @@ const defaultLayout = {{
 
 def main():
     parser = argparse.ArgumentParser(description="Generate skills.sh ecosystem dashboard")
-    parser.add_argument("--output", "-o", default="skills_dashboard.html", help="Output HTML path")
+    parser.add_argument("--output", "-o", default="index.html", help="Output HTML path")
     parser.add_argument("--json", action="store_true", help="Also dump raw JSON data files")
     parser.add_argument("--no-cache", action="store_true", help="Bypass cache and fetch fresh data")
     args = parser.parse_args()

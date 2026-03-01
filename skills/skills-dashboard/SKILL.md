@@ -29,7 +29,7 @@ Generate the dashboard with the scraper script:
 python3 scripts/scrape_and_build.py
 ```
 
-This writes `skills_dashboard.html` to the current directory.
+This writes `index.html` to the current directory.
 
 To write to a specific path:
 
