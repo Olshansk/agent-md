@@ -2,14 +2,17 @@
 
 - [Project Overview](#project-overview)
 - [Project Structure](#project-structure)
+- [Dashboard Workflow](#dashboard-workflow)
 - [Supported Tools](#supported-tools)
 - [Skill Authoring Standards](#skill-authoring-standards)
 - [Documentation Standards](#documentation-standards)
 
 ## Project Overview
 
-- Multi-skill catalog for agentic CLIs
+- Multi-skill catalog for agentic CLIs by [Daniel Olshansky](https://olshansky.info)
 - Canonical distribution path: `npx skills add olshansk/agent-skills`
+- Follows the [Agent Skills](https://agentskills.io/home) pattern, inspired by [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills)
+- Live dashboard: [skills-dashboard.olshansky.info](https://skills-dashboard.olshansky.info/)
 - Skills: `session-commit`, `skills-dashboard`
 
 ## Project Structure
@@ -18,7 +21,17 @@
 - `skills/session-commit/` — captures session learnings and updates `AGENTS.md`
 - `skills/skills-dashboard/` — scrapes skills.sh and generates an interactive HTML dashboard
 - `.github/workflows/skills-validate.yml` — CI workflow for skill validation
+- `index.html` — root GitHub Pages dashboard (copied from `skills/skills-dashboard/index.html`)
 - `.claude-plugin/`, `gemini-extension.json` — legacy fallback metadata for tool-specific installs
+
+## Dashboard Workflow
+
+- The `skills-dashboard` skill has a scraper script at `skills/skills-dashboard/scripts/scrape_and_build.py`
+- The installed skill copy lives at `~/.claude/skills/skills-dashboard/scripts/scrape_and_build.py`
+- After modifying the script, sync the repo copy: `cp ~/.claude/skills/skills-dashboard/scripts/scrape_and_build.py skills/skills-dashboard/scripts/`
+- After regenerating, always copy to root: `cp skills/skills-dashboard/index.html index.html`
+- GitHub Pages serves from root `index.html` — the live site at `skills-dashboard.olshansky.info` won't update until this file is pushed
+- GitHub Pages CDN caches aggressively; use `?v=N` query param or hard refresh to verify updates
 
 ## Supported Tools
 
