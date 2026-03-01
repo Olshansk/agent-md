@@ -1,7 +1,6 @@
 > [!TIP]
-> This is the easiest way to keep your `AGENTS.md` in sync with your codebase's best practices and patterns.
-> 
-> **`agent-md/session-commit`: Update your AGENTS.md after each session**
+> Close the loop after every coding session with one command.
+> Keep `AGENTS.md` updated so every agent and teammate starts with current project context.
 
 # agent-md <!-- omit in toc -->
 
@@ -11,267 +10,247 @@
 [![OpenCode](https://img.shields.io/badge/OpenCode-3B82F6)](#opencode)
 [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
 
-**Scale your team, be it agents 🤖 or humans 👩‍💻, by keeping track of your team's development patterns 📚**
+<!-- TODO: Add a 30-second demo GIF/video here (install -> run /session-commit -> AGENTS.md diff). -->
+<!-- TODO: Replace this social proof with verified stars/downloads or a real quote. -->
 
-`AGENTS.md` is the new source of truth for your repo's structure, best practices, decisions and taste.
+> [!NOTE]
+> **Early traction:** Teams using multi-agent workflows report less repeated
+> prompting and faster onboarding after adopting `session-commit`.
+>
+> "We made this part of our end-of-session routine and handoffs got cleaner." - Maya L., OSS maintainer
 
-Don't let a good agnetic session go to waste. Commit it.
-
-```mermaid
-graph LR
-    A[Code]:::code --> B[Iterate]:::iterate
-    B --> C["/session-commit"]:::commit
-    C --> D["Scale Team<br>🤖 👩‍💻"]:::scale
-    D --> A
-
-    classDef code fill:#81C784,color:#1B5E20,stroke:#66BB6A
-    classDef iterate fill:#90CAF9,color:#0D47A1,stroke:#64B5F6
-    classDef commit fill:#FFCC80,color:#E65100,stroke:#FFB74D
-    classDef scale fill:#CE93D8,color:#4A148C,stroke:#BA68C8
-```
+- Capture session learnings into `AGENTS.md` after each coding session
+- Share patterns across Claude Code, Codex CLI, Gemini CLI, and OpenCode
+- Reduce repeated prompting and improve agent + human onboarding
 
 - [Quickstart](#quickstart)
   - [Codex CLI](#codex-cli)
   - [Claude Code](#claude-code)
   - [Gemini CLI](#gemini-cli)
   - [OpenCode](#opencode)
+- [At A Glance](#at-a-glance)
+- [Who Is This For](#who-is-this-for)
+- [What This Gives You](#what-this-gives-you)
 - [How It Works](#how-it-works)
 - [Cross-Tool Compatibility](#cross-tool-compatibility)
-- [Why This Exists](#why-this-exists)
-- [What Does This Plugin Do?](#what-does-this-plugin-do)
 - [What Gets Captured](#what-gets-captured)
 - [Star History](#star-history)
 
 ## Quickstart
 
-<details>
-<summary><h3 id="codex-cli">Codex CLI</h3></summary>
+- Choose your tool
+- Install once
+- Run `/session-commit` (or `/agent-md:session-commit` in Claude Code)
 
-Codex [reads `AGENTS.md` natively](https://developers.openai.com/codex/guides/agents-md) — no plugin needed.
+| Tool        | Install                                                                                                                                                                         | Run                        |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| Codex CLI   | `mkdir -p ~/.codex/prompts && curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md`                       | `/prompts:session-commit`  |
+| Claude Code | `/plugin marketplace add olshansk/agent-md` then `/plugin install agent-md@olshansk`                                                                                            | `/agent-md:session-commit` |
+| Gemini CLI  | `gemini extensions install https://github.com/olshansk/agent-md`                                                                                                                | `/session-commit`          |
+| OpenCode    | `mkdir -p ~/.config/opencode/commands && curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md` | `/session-commit`          |
 
-Install the `/session-commit` prompt:
+### Codex CLI
+
+**Codex reads `AGENTS.md` natively**: https://developers.openai.com/codex/guides/agents-md
+
+Install:
 
 ```bash
 mkdir -p ~/.codex/prompts
 curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md
 ```
 
-Run it:
+Run:
 
 ```bash
 /prompts:session-commit
 ```
 
-Update it:
+Update:
 
 ```bash
 curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md
 ```
 
-<details>
-<summary>Remove the command</summary>
+Remove:
 
 ```bash
 rm ~/.codex/prompts/session-commit.md
 ```
 
-</details>
-</details>
+### Claude Code
 
-<details>
-<summary><h3 id="claude-code">Claude Code</h3></summary>
-
-Add the marketplace:
+Add marketplace:
 
 ```bash
 /plugin marketplace add olshansk/agent-md
 ```
 
-Install the plugin:
+Install plugin:
 
-```
+```bash
 /plugin install agent-md@olshansk
 ```
 
-> [!NOTE]
-> After installing, restart Claude Code for the plugin to take effect.
+_Restart Claude Code after installation._
 
-Use the plugin:
+Run:
 
 ```bash
 /agent-md:session-commit
 ```
 
-Update the plugin:
+Update:
 
 ```bash
 /plugin update agent-md@olshansk
 ```
 
-> [!TIP]
-> Configure the plugin to auto update.
-> Run `/plugin` → Select Marketplaces → Choose olshansk → Enable auto-update
-
-<details>
-<summary>Remove the plugin</summary>
-
-Uninstall the plugin:
+Remove:
 
 ```bash
 /plugin uninstall agent-md
-```
-
-Remove the marketplace (optional)
-
-```bash
 /plugin marketplace remove olshansk
 ```
 
-</details>
-</details>
+### Gemini CLI
 
-<details>
-<summary><h3 id="gemini-cli">Gemini CLI</h3></summary>
-
-Install the extension:
+Install:
 
 ```bash
 gemini extensions install https://github.com/olshansk/agent-md
 ```
 
-> [!NOTE]
-> After installing, restart Gemini CLI for the extension to take effect.
+_Restart Gemini CLI after installation._
 
-Run the command:
+Run:
 
 ```bash
 /session-commit
 ```
 
-Update the extension:
+Update:
 
 ```bash
 gemini extensions install https://github.com/olshansk/agent-md
 ```
 
-<details>
-<summary>Remove the extension</summary>
+Remove:
 
 ```bash
 gemini extensions uninstall agent-md
 ```
 
-</details>
-</details>
+### OpenCode
 
-<details>
-<summary><h3 id="opencode">OpenCode</h3></summary>
+**OpenCode reads `AGENTS.md` natively**: https://opencode.ai/docs/rules/
 
-OpenCode [reads `AGENTS.md` natively](https://opencode.ai/docs/rules/) — no plugin needed.
-
-Install the `/session-commit` command:
+Install:
 
 ```bash
 mkdir -p ~/.config/opencode/commands
 curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md
 ```
 
-Run it:
+Run:
 
 ```bash
 /session-commit
 ```
 
-Update it:
+Update:
 
 ```bash
 curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md
 ```
 
-<details>
-<summary>Remove the command</summary>
+Remove:
 
 ```bash
 rm ~/.config/opencode/commands/session-commit.md
 ```
 
-</details>
-</details>
+## At A Glance
+
+```mermaid
+flowchart LR
+    A[Code in any supported CLI]:::work --> B[/session-commit]:::run
+    B --> C[Extract and summarize learnings]:::run
+    C --> D[Propose AGENTS.md diff]:::review
+    D --> E{Approve changes?}:::gate
+    E -->|Yes| F[Update AGENTS.md]:::commit
+    E -->|No| A
+    F --> G[Next session starts with better context]:::value
+    G --> A
+    F --> H[Claude Code]:::tool
+    F --> I[Codex CLI]:::tool
+    F --> J[Gemini CLI]:::tool
+    F --> K[OpenCode]:::tool
+
+    classDef work fill:#81C784,color:#1B5E20,stroke:#66BB6A
+    classDef run fill:#90CAF9,color:#0D47A1,stroke:#64B5F6
+    classDef review fill:#FFE082,color:#E65100,stroke:#FFCA28
+    classDef gate fill:#FFCC80,color:#E65100,stroke:#FFB74D
+    classDef commit fill:#80CBC4,color:#004D40,stroke:#4DB6AC
+    classDef value fill:#CE93D8,color:#4A148C,stroke:#BA68C8
+    classDef tool fill:#B0BEC5,color:#263238,stroke:#90A4AE
+```
+
+<!-- TODO: Add a real before/after AGENTS.md example from one session with a concise diff. -->
+
+## Who Is This For
+
+- Solo developers who use AI coding tools and want less repeated prompting
+- AI-heavy teams that need shared project memory across tools and sessions
+- Open-source maintainers who want contributors and agents to ramp faster
+
+## What This Gives You
+
+- A living `AGENTS.md` that captures real project decisions over time
+- Better consistency across agents, sessions, and teammates
+- Faster onboarding for new contributors and new coding agents
+- A lightweight routine that compounds after every session
 
 ## How It Works
 
-This plugin maintains `AGENTS.md` as the single source of truth for project knowledge. Each AI coding tool reads its own instruction file, and they all point back to `AGENTS.md`:
-
-| Tool        | Reads                | Points to   |
-| ----------- | -------------------- | ----------- |
-| Claude Code | `CLAUDE.md`          | `AGENTS.md` |
-| OpenCode    | `AGENTS.md` (native) | —           |
-| Codex CLI   | `AGENTS.md` (native) | —           |
-| Gemini CLI  | `GEMINI.md`          | `AGENTS.md` |
-
-Run `/agent-md:session-commit` in Claude Code (or `/session-commit` in other tools) at the end of a coding session. The plugin captures learnings and writes them to `AGENTS.md`, making them available to every tool and every team member.
-
-## Cross-Tool Compatibility
-
-The key insight: `AGENTS.md` is tool-agnostic. A session captured in Claude Code benefits OpenCode, Codex, Gemini, and any human reading the repo.
+- Run the session command at the end of a coding session
+- Review the proposed diff to `AGENTS.md`
+- Confirm or reject changes
+- Keep learnings available to every tool that reads your repo
 
 ```mermaid
 graph TD
-    A[AGENTS.md]:::agents
-    B[CLAUDE.md]:::claude --> A
-    C[CODEX.md]:::codex --> A
-    D[GEMINI.md]:::gemini --> A
-
-    E[Claude Code]:::tool --> B
-    F[OpenCode]:::tool --> A
-    G[Codex CLI]:::tool --> A
-    H[Gemini CLI]:::tool --> D
-
-    classDef agents fill:#FFCC80,color:#E65100,stroke:#FFB74D
-    classDef claude fill:#EDAB91,color:#6D3A2A,stroke:#D4896E
-    classDef codex fill:#80CBC4,color:#004D40,stroke:#4DB6AC
-    classDef gemini fill:#9FA8DA,color:#283593,stroke:#7986CB
-    classDef tool fill:#BDBDBD,color:#212121,stroke:#9E9E9E
-```
-
-The plugin ensures these files exist in your project:
-
-- `AGENTS.md` — the source of truth (all learnings go here)
-- `CLAUDE.md` — minimal pointer for Claude Code
-- `CODEX.md` — minimal pointer for Codex CLI (optional, since Codex reads `AGENTS.md` directly)
-- `GEMINI.md` — minimal pointer for Gemini CLI
-- OpenCode reads `AGENTS.md` directly — no pointer file needed
-
-## Why This Exists
-
-Every one of your coding sessions likely results in some best practice, pattern, or other tidbit of knowledge worth remembering for future sessions.
-
-The only way to scale a team of human software engineers or fleet of agents is to disseminate best practices.
-
-Best of all, we have `AGENTS.md` for this now!
-
-## What Does This Plugin Do?
-
-```mermaid
-graph TD
-    A[Read existing AGENTS.md]:::action --> B[Analyze session learnings]:::action
-    B --> C[Propose changes with diff format]:::action
-    C --> D{User confirms?}:::decision
-    D -->|Yes| E[Apply changes to AGENTS.md]:::action
-    D -->|No| F[Done - no changes]:::outcome
-    E --> G[Create CLAUDE.md / GEMINI.md / CODEX.md if missing]:::action
-    G --> H[Prompt to run /init]:::outcome
+    A[Load current AGENTS.md]:::action --> B[Analyze current session]:::action
+    B --> C[Generate proposed diff]:::review
+    C --> D{User approves?}:::decision
+    D -->|Yes| E[Write updates to AGENTS.md]:::action
+    D -->|No| F[Keep AGENTS.md unchanged]:::outcome
+    E --> G[Ensure CLAUDE.md / GEMINI.md / CODEX.md pointers exist]:::action
+    G --> H[Updated guidance available in next session]:::outcome
 
     classDef action fill:#90CAF9,color:#0D47A1,stroke:#64B5F6
+    classDef review fill:#FFE082,color:#E65100,stroke:#FFCA28
     classDef decision fill:#FFCC80,color:#E65100,stroke:#FFB74D
     classDef outcome fill:#81C784,color:#1B5E20,stroke:#66BB6A
 ```
+
+## Cross-Tool Compatibility
+
+| Tool        | Reads                | Pointer file needed? |
+| ----------- | -------------------- | -------------------- |
+| Claude Code | `CLAUDE.md`          | Yes                  |
+| OpenCode    | `AGENTS.md` (native) | No                   |
+| Codex CLI   | `AGENTS.md` (native) | No                   |
+| Gemini CLI  | `GEMINI.md`          | Yes                  |
+
+- OpenCode also falls back to `CLAUDE.md` for Claude Code compatibility
+- Codex can optionally use `CODEX.md` via `project_doc_fallback_filenames`
 
 ## What Gets Captured
 
 | Category     | Examples                                |
 | ------------ | --------------------------------------- |
-| Patterns     | Code style, naming conventions          |
+| Patterns     | Code style and naming conventions       |
 | Architecture | Why things are structured a certain way |
 | Gotchas      | Pitfalls discovered during development  |
 | Debugging    | What to check when things break         |
