@@ -1,0 +1,18 @@
+# agent-skills Documentation Index
+
+- README.md
+- AGENTS.md
+- skills/README.md
+- skills/session-commit/SKILL.md
+- skills/session-commit/references/change-proposal-format.md
+- skills/session-commit/assets/pointer-template.md
+- tools/validate_skills.py
+- commands/session-commit.md
+- commands/session-commit.toml
+
+External references:
+
+- https://agentskills.io/home
+- https://agentskills.io/specification#skill-md-format
+- https://agentskills.io/llms.txt
+- https://agentskills.io/using-scripts-in-skills

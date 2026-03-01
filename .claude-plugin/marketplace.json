@@ -4,29 +4,30 @@
     "name": "Daniel Olshansky"
   },
   "metadata": {
-    "description": "Capture session learnings to AGENTS.md for cross-tool AI interoperability"
+    "description": "Multi-skill catalog for agentic CLIs with AGENTS.md memory workflows"
   },
   "plugins": [
     {
-      "name": "agent-md",
+      "name": "agent-skills",
       "source": {
         "source": "github",
-        "repo": "olshansk/agent-md"
+        "repo": "olshansk/agent-skills"
       },
-      "description": "Capture session learnings and best practices to AGENTS.md to scale your human/agent team.",
-      "version": "0.2.0",
+      "description": "Installable agent skills catalog including session-commit for AGENTS.md updates.",
+      "version": "1.0.0",
       "author": {
         "name": "Daniel Olshansky"
       },
       "category": "workflow",
       "tags": [
         "agents",
-        "documentation",
+        "skills",
         "knowledge-base",
         "cross-tool",
         "session",
         "codex",
-        "gemini"
+        "gemini",
+        "claude"
       ]
     }
   ]

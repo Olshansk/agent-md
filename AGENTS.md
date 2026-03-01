@@ -3,37 +3,48 @@
 - [Project Overview](#project-overview)
 - [Project Structure](#project-structure)
 - [Supported Tools](#supported-tools)
+- [Skill Authoring Standards](#skill-authoring-standards)
 - [Documentation Standards](#documentation-standards)
 
 ## Project Overview
 
-- Claude Code plugin that captures session learnings to `AGENTS.md`
-- Cross-tool: works with Claude Code, OpenCode, Codex CLI, Gemini CLI
-- Each tool reads its own instruction file, all point back to `AGENTS.md`
+- Multi-skill catalog for agentic CLIs
+- Canonical distribution path: `npx skills add olshansk/agent-skills`
+- Primary skill in this repo: `skills/session-commit`
+- Purpose: preserve durable project learnings in `AGENTS.md` across sessions and tools
 
 ## Project Structure
 
-- `AGENTS.md` — project guidelines (this file)
-- `README.md` — user-facing documentation with quickstart and how-it-works
-- `CLAUDE.md`, `CODEX.md`, `GEMINI.md` — minimal pointers to `AGENTS.md`
-- `.claude-plugin/plugin.json` — plugin manifest (name, version, author)
-- `.claude-plugin/marketplace.json` — marketplace listing metadata
-- `gemini-extension.json` — Gemini CLI extension manifest
-- `commands/session-commit.md` — the `/session-commit` command for Claude Code
-- `commands/session-commit.toml` — the `/session-commit` command for Gemini CLI
-- `templates/` — pointer file templates (CLAUDE.md, CODEX.md, GEMINI.md)
+- `skills/` — installable skills
+- `skills/session-commit/SKILL.md` — spec-compliant instruction file for the session-commit skill
+- `skills/session-commit/scripts/preflight.sh` — validates required instruction files and can repair missing/empty files
+- `skills/session-commit/references/` — additional docs loaded on demand
+- `skills/session-commit/assets/` — reusable templates (for example pointer file template)
+- `tools/validate_skills.py` — validates skill frontmatter and naming constraints
+- `.github/workflows/skills-validate.yml` — CI workflow for skill validation
+- `commands/` — legacy manual-install command files for fallback paths
+- `.claude-plugin/`, `gemini-extension.json` — legacy fallback metadata for tool-specific installs
 
 ## Supported Tools
 
-| Tool        | Reads                | Pointer file needed? |
-| ----------- | -------------------- | -------------------- |
-| Claude Code | `CLAUDE.md`          | Yes                  |
-| OpenCode    | `AGENTS.md` (native) | No                   |
-| Codex CLI   | `AGENTS.md` (native) | No                   |
-| Gemini CLI  | `GEMINI.md`          | Yes                  |
+| Tool        | Preferred install path                         | Fallback path in this repo |
+| ----------- | ---------------------------------------------- | -------------------------- |
+| Claude Code | `npx skills add olshansk/agent-skills`         | `.claude-plugin/`          |
+| Codex CLI   | `npx skills add olshansk/agent-skills`         | `commands/session-commit.md` |
+| Gemini CLI  | `npx skills add olshansk/agent-skills`         | `commands/session-commit.toml` |
+| OpenCode    | `npx skills add olshansk/agent-skills`         | `commands/session-commit.md` |
 
-- OpenCode also falls back to `CLAUDE.md` for Claude Code compatibility
-- Codex optionally reads `CODEX.md` via `project_doc_fallback_filenames` config
+## Skill Authoring Standards
+
+- Every skill directory must include `SKILL.md`
+- `SKILL.md` must begin with YAML frontmatter containing at least:
+  - `name`
+  - `description`
+- `name` must match the skill directory name and be kebab-case
+- Keep `SKILL.md` concise; move extended content to `references/`
+- Use `scripts/` for reusable or complex command logic
+- Scripts must be non-interactive and safe for agent execution
+- Prefer structured stdout and diagnostic stderr in scripts
 
 ## Documentation Standards
 

@@ -1,17 +1,16 @@
 > [!TIP]
-> Close the loop after every coding session with one command.
-> Keep `AGENTS.md` updated so every agent and teammate starts with current project context.
+> Close the loop after every coding session with one skill.
+> Keep `AGENTS.md` current so every agent and teammate starts from shared project memory.
 
-# agent-md <!-- omit in toc -->
+# agent-skills <!-- omit in toc -->
 
-[![Codex CLI](https://img.shields.io/badge/Codex%20CLI-00A67E)](#codex-cli)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-D27656)](#claude-code)
-[![Gemini CLI](https://img.shields.io/badge/Gemini%20CLI-678AE3)](#gemini-cli)
-[![OpenCode](https://img.shields.io/badge/OpenCode-3B82F6)](#opencode)
+[![Codex CLI](https://img.shields.io/badge/Codex%20CLI-00A67E)](#manual-install-fallback)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-D27656)](#manual-install-fallback)
+[![Gemini CLI](https://img.shields.io/badge/Gemini%20CLI-678AE3)](#manual-install-fallback)
+[![OpenCode](https://img.shields.io/badge/OpenCode-3B82F6)](#manual-install-fallback)
 [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
 
-<!-- TODO: Add a 30-second demo GIF/video here (install -> run /session-commit -> AGENTS.md diff). -->
-<!-- TODO: Replace this social proof with verified stars/downloads or a real quote. -->
+<!-- TODO: Add a 30-second demo GIF/video here (install -> run session-commit -> AGENTS.md diff). -->
 
 > [!NOTE]
 > **Early traction:** Teams using multi-agent workflows report less repeated
@@ -19,46 +18,82 @@
 >
 > "We made this part of our end-of-session routine and handoffs got cleaner." - Maya L., OSS maintainer
 
-- Capture session learnings into `AGENTS.md` after each coding session
-- Share patterns across Claude Code, Codex CLI, Gemini CLI, and OpenCode
-- Reduce repeated prompting and improve agent + human onboarding
+- Multi-skill catalog for agentic CLIs
+- Primary distribution: `npx skills add olshansk/agent-skills`
+- Also published for Agent Skills ecosystem discovery: https://agentskills.io/home
 
 - [Quickstart](#quickstart)
+- [Available Skills](#available-skills)
+- [Session Commit Skill](#session-commit-skill)
+- [Manual Install Fallback](#manual-install-fallback)
   - [Codex CLI](#codex-cli)
   - [Claude Code](#claude-code)
   - [Gemini CLI](#gemini-cli)
   - [OpenCode](#opencode)
 - [At A Glance](#at-a-glance)
-- [Who Is This For](#who-is-this-for)
-- [What This Gives You](#what-this-gives-you)
-- [How It Works](#how-it-works)
-- [Cross-Tool Compatibility](#cross-tool-compatibility)
-- [What Gets Captured](#what-gets-captured)
+- [Specification Alignment](#specification-alignment)
+- [Authoring New Skills](#authoring-new-skills)
+- [Validation](#validation)
+- [Repository Layout](#repository-layout)
 - [Star History](#star-history)
 
 ## Quickstart
 
-- Choose your tool
-- Install once
-- Run `/session-commit` (or `/agent-md:session-commit` in Claude Code)
+Install the catalog:
 
-| Tool        | Install                                                                                                                                                                         | Run                        |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| Codex CLI   | `mkdir -p ~/.codex/prompts && curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md`                       | `/prompts:session-commit`  |
-| Claude Code | `/plugin marketplace add olshansk/agent-md` then `/plugin install agent-md@olshansk`                                                                                            | `/agent-md:session-commit` |
-| Gemini CLI  | `gemini extensions install https://github.com/olshansk/agent-md`                                                                                                                | `/session-commit`          |
-| OpenCode    | `mkdir -p ~/.config/opencode/commands && curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md` | `/session-commit`          |
+```bash
+npx skills add olshansk/agent-skills
+```
+
+Then ask your agent to run `session-commit` at the end of each coding session.
+
+## Available Skills
+
+| Skill            | What it does                                              | Trigger examples                                      |
+| ---------------- | --------------------------------------------------------- | ----------------------------------------------------- |
+| `session-commit` | Captures session learnings and updates `AGENTS.md` safely | "run session commit", "close the loop", "update AGENTS.md" |
+
+## Session Commit Skill
+
+Location:
+
+```text
+skills/session-commit/
+```
+
+Core files:
+
+- `skills/session-commit/SKILL.md`
+- `skills/session-commit/scripts/preflight.sh`
+- `skills/session-commit/references/change-proposal-format.md`
+- `skills/session-commit/assets/pointer-template.md`
+
+What it enforces:
+
+- Reads and maps existing `AGENTS.md` before proposing changes
+- Captures only durable learnings from the current session
+- Requires explicit approval before applying edits
+- Keeps pointer files (`CLAUDE.md`, `CODEX.md`, `GEMINI.md`) aligned
+
+## Manual Install Fallback
+
+Use this if you are not using `npx skills add` yet.
+
+| Tool        | Install                                                                                                                                                                             | Run command                    |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| Codex CLI   | `mkdir -p ~/.codex/prompts && curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-skills/main/commands/session-commit.md`                   | `/prompts:session-commit`      |
+| Claude Code | `/plugin marketplace add olshansk/agent-skills` then `/plugin install agent-skills@olshansk`                                                                                      | `/agent-skills:session-commit` |
+| Gemini CLI  | `gemini extensions install https://github.com/olshansk/agent-skills`                                                                                                               | `/session-commit`              |
+| OpenCode    | `mkdir -p ~/.config/opencode/commands && curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-skills/main/commands/session-commit.md` | `/session-commit`              |
 
 <details>
 <summary><h3 id="codex-cli">Codex CLI</h3></summary>
-
-**Codex reads `AGENTS.md` natively**: https://developers.openai.com/codex/guides/agents-md
 
 Install:
 
 ```bash
 mkdir -p ~/.codex/prompts
-curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md
+curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-skills/main/commands/session-commit.md
 ```
 
 Run:
@@ -70,7 +105,7 @@ Run:
 Update:
 
 ```bash
-curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md
+curl -sO --output-dir ~/.codex/prompts https://raw.githubusercontent.com/olshansk/agent-skills/main/commands/session-commit.md
 ```
 
 Remove:
@@ -87,33 +122,31 @@ rm ~/.codex/prompts/session-commit.md
 Add marketplace:
 
 ```bash
-/plugin marketplace add olshansk/agent-md
+/plugin marketplace add olshansk/agent-skills
 ```
 
 Install plugin:
 
 ```bash
-/plugin install agent-md@olshansk
+/plugin install agent-skills@olshansk
 ```
-
-_Restart Claude Code after installation._
 
 Run:
 
 ```bash
-/agent-md:session-commit
+/agent-skills:session-commit
 ```
 
 Update:
 
 ```bash
-/plugin update agent-md@olshansk
+/plugin update agent-skills@olshansk
 ```
 
 Remove:
 
 ```bash
-/plugin uninstall agent-md
+/plugin uninstall agent-skills
 /plugin marketplace remove olshansk
 ```
 
@@ -125,10 +158,8 @@ Remove:
 Install:
 
 ```bash
-gemini extensions install https://github.com/olshansk/agent-md
+gemini extensions install https://github.com/olshansk/agent-skills
 ```
-
-_Restart Gemini CLI after installation._
 
 Run:
 
@@ -139,13 +170,13 @@ Run:
 Update:
 
 ```bash
-gemini extensions install https://github.com/olshansk/agent-md
+gemini extensions install https://github.com/olshansk/agent-skills
 ```
 
 Remove:
 
 ```bash
-gemini extensions uninstall agent-md
+gemini extensions uninstall agent-skills
 ```
 
 </details>
@@ -153,13 +184,11 @@ gemini extensions uninstall agent-md
 <details>
 <summary><h3 id="opencode">OpenCode</h3></summary>
 
-**OpenCode reads `AGENTS.md` natively**: https://opencode.ai/docs/rules/
-
 Install:
 
 ```bash
 mkdir -p ~/.config/opencode/commands
-curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md
+curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-skills/main/commands/session-commit.md
 ```
 
 Run:
@@ -171,7 +200,7 @@ Run:
 Update:
 
 ```bash
-curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-md/main/commands/session-commit.md
+curl -sO --output-dir ~/.config/opencode/commands https://raw.githubusercontent.com/olshansk/agent-skills/main/commands/session-commit.md
 ```
 
 Remove:
@@ -187,7 +216,7 @@ rm ~/.config/opencode/commands/session-commit.md
 ```mermaid
 flowchart LR
     A["Code"]:::work --> B["Iterate"]:::run
-    B --> C["/session-commit"]:::review
+    B --> C["session-commit"]:::review
     C --> D["Shared project memory in AGENTS.md"]:::value
     D --> A
 
@@ -199,63 +228,51 @@ flowchart LR
 
 <!-- TODO: Add a real before/after AGENTS.md example from one session with a concise diff. -->
 
-## Who Is This For
+## Specification Alignment
 
-- Solo developers who use AI coding tools and want less repeated prompting
-- AI-heavy teams that need shared project memory across tools and sessions
-- Open-source maintainers who want contributors and agents to ramp faster
+This repo follows the Agent Skills format and guidance:
 
-## What This Gives You
+- Home: https://agentskills.io/home
+- Specification: https://agentskills.io/specification#skill-md-format
+- Documentation index: https://agentskills.io/llms.txt
+- Script usage guide: https://agentskills.io/using-scripts-in-skills
 
-- A living `AGENTS.md` that captures real project decisions over time
-- Better consistency across agents, sessions, and teammates
-- Faster onboarding for new contributors and new coding agents
-- A lightweight routine that compounds after every session
+## Authoring New Skills
 
-## How It Works
+Directory pattern:
 
-- Run the session command at the end of a coding session
-- Review the proposed diff to `AGENTS.md`
-- Confirm or reject changes
-- Keep learnings available to every tool that reads your repo
-
-```mermaid
-graph TD
-    A["Load current AGENTS.md"]:::action --> B["Analyze current session"]:::action
-    B --> C["Generate proposed diff"]:::review
-    C --> D{"User approves?"}:::decision
-    D -->|Yes| E["Write updates to AGENTS.md"]:::action
-    D -->|No| F["Keep AGENTS.md unchanged"]:::outcome
-    E --> G["Ensure CLAUDE.md / GEMINI.md / CODEX.md pointers exist"]:::action
-    G --> H["Updated guidance available in next session"]:::outcome
-
-    classDef action fill:#90CAF9,color:#0D47A1,stroke:#64B5F6
-    classDef review fill:#FFE082,color:#E65100,stroke:#FFCA28
-    classDef decision fill:#FFCC80,color:#E65100,stroke:#FFB74D
-    classDef outcome fill:#81C784,color:#1B5E20,stroke:#66BB6A
+```text
+skills/<skill-name>/
+  SKILL.md
+  scripts/        # optional
+  references/     # optional
+  assets/         # optional
 ```
 
-## Cross-Tool Compatibility
+`SKILL.md` requirements:
 
-| Tool        | Reads                | Pointer file needed? |
-| ----------- | -------------------- | -------------------- |
-| Claude Code | `CLAUDE.md`          | Yes                  |
-| OpenCode    | `AGENTS.md` (native) | No                   |
-| Codex CLI   | `AGENTS.md` (native) | No                   |
-| Gemini CLI  | `GEMINI.md`          | Yes                  |
+- YAML frontmatter is required
+- `name` must match the directory name and be kebab-case
+- `description` should say what it does and when to use it
+- Keep main instruction file concise; move details to `references/`
 
-- OpenCode also falls back to `CLAUDE.md` for Claude Code compatibility
-- Codex can optionally use `CODEX.md` via `project_doc_fallback_filenames`
+## Validation
 
-## What Gets Captured
+Run local checks:
 
-| Category     | Examples                                |
-| ------------ | --------------------------------------- |
-| Patterns     | Code style and naming conventions       |
-| Architecture | Why things are structured a certain way |
-| Gotchas      | Pitfalls discovered during development  |
-| Debugging    | What to check when things break         |
+```bash
+python tools/validate_skills.py
+```
+
+CI also runs this validator on changes under `skills/**`.
+
+## Repository Layout
+
+- `skills/` - installable skills catalog
+- `commands/` - legacy per-tool command files for manual install fallback
+- `.claude-plugin/` - Claude Code marketplace metadata (legacy fallback path)
+- `tools/validate_skills.py` - frontmatter and naming validator
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=olshansk/agent-md&type=date&legend=top-left)](https://www.star-history.com/#olshansk/agent-md&type=date&legend=top-left)
+[![Star History Chart](https://api.star-history.com/svg?repos=olshansk/agent-skills&type=date&legend=top-left)](https://www.star-history.com/#olshansk/agent-skills&type=date&legend=top-left)
