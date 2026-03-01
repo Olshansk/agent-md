@@ -11,6 +11,3 @@ Thumbs.db
 
 # Local configuration (user-specific settings)
 .claude/*.local.md
-
-# Generated outputs
-skills_dashboard.html
